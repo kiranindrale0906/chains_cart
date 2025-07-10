@@ -1,0 +1,197 @@
+<?php 
+	function fetch_card_view_array($process, $value, $lot_no = '',$in_lot_purity=''){
+
+		$card_array = array('balance_tounch_out'=>
+																	array('view'=>'layouts/application/dashboard/card',
+																				'card_style'=>'bg_cyan bdr_cyan white',
+																				'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+																				'card_title'=>'HCL Process Balance',
+																				'card_count'=> !empty($value)?$value:0,
+																				'url'=>ADMIN_PATH.'stock_summary_reports/stock_summary_list?
+																							row=hcl_wastage_balance&type_of=balance&end_date='
+																							.date("Y-m-d", strtotime("+1 day")),
+																				'col'=>'col-lg-3 col-md-6'),
+												'tounch_out_ghiss'=>array('view'=>'layouts/application/dashboard/card',
+																				'card_style'=>'bg_orange bdr_pink white',
+									                      'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+									                      'card_title'=>'Tounch Out Ghiss',
+									                      'card_count'=>!empty($value)?$value:'0.00',
+									                      'url'=>ADMIN_PATH.'stock_summary_reports/stock_summary_list?row=balance_tounch_out&type_of=balance_tounch_out&end_date='
+									                      .date("Y-m-d", strtotime("+1 day")),
+	                      								'col'=>'col-lg-3 col-md-6'),
+
+												'rope_ghiss_process'=>array('view'=>'layouts/application/dashboard/card',
+																				'card_style'=>'bg_black bdr_pink white',
+									                      'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+									                      'card_title'=>'Rope Ghiss Process',
+									                      'card_count'=>!empty($value)?$value:'0.00',
+									                      'url'=>ADMIN_PATH.'stock_summary_reports/stock_summary_list?row=balance_tounch_out&type_of=balance_tounch_out&end_date='
+									                      .date("Y-m-d", strtotime("+1 day")),
+	                      								'col'=>'col-lg-3 col-md-6'),
+
+												'rope_ghiss_balance'=>array('view'=>'layouts/application/dashboard/card',
+																				'card_style'=>'bg_black bdr_pink white',
+									                      'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+									                      'card_title'=>'Rope Ghiss Balance',
+									                      'card_count'=>!empty($value)?$value:'0.00',
+									                      'url'=>ADMIN_PATH.'stock_summary_reports/stock_summary_list?row=balance_tounch_out&type_of=balance_tounch_out&end_date='
+									                      .date("Y-m-d", strtotime("+1 day")),
+	                      								'col'=>'col-lg-3 col-md-6'),
+												'daily_drawer_balance'=>array('view'=>'layouts/application/dashboard/card',
+																				'card_style'=>'bg_red bdr_pink white',
+									                      'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+									                      'card_title'=>'Office Outside Balance',
+									                      'card_count'=>!empty($value)?$value:0,
+									                      'url'=>ADMIN_PATH.'stock_summary_reports/
+									                      		stock_summary_list?row=metal_summary&type_of=balance&end_date='
+									                      			.date("Y-m-d", strtotime("+1 day")),
+									                      'col'=>'col-lg-3 col-md-6'),
+
+												'office_outside'=>array('view'=>'layouts/application/dashboard/card',
+																				'card_style'=>'bg_red bdr_pink white',
+									                      'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+									                      'card_title'=>'Office Outside Process',
+									                      'card_count'=>!empty($value)?$value:0,
+									                      'url'=>ADMIN_PATH.'stock_summary_reports/
+									                      		stock_summary_list?row=metal_summary&type_of=balance&end_date='
+									                      			.date("Y-m-d", strtotime("+1 day")),
+									                      'col'=>'col-lg-3 col-md-6'),
+
+												'daily_drawer_process'=>array('view'=>'layouts/application/dashboard/card',
+																				'card_style'=>'bg_yellow bdr_pink white',
+									                      'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+									                      'card_title'=>'Daily Drawer Process',
+									                      'card_count'=>!empty($value)?$value:'0.00',
+									                      'url'=>ADMIN_PATH.'stock_summary_reports/stock_summary_list?row=metal_summary&type_of=balance&end_date='
+									                      .date("Y-m-d", strtotime("+1 day")),
+									                      'col'=>'col-lg-3 col-md-6'),
+
+												'daily_drawer_wastage'=>array('view'=>'layouts/application/dashboard/card',
+																				'card_style'=>'bg_yellow bdr_pink white',
+									                      'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+									                      'card_title'=>'Daily Drawer Wastage',
+									                      'card_count'=>!empty($value)?$value:'0.00',
+									                      'url'=>ADMIN_PATH.'stock_summary_reports/stock_summary_list?row=daily_drawer_process&type_of=balance&is_highlight=chain',
+									                      'col'=>'col-lg-3 col-md-6'),
+												'ghiss_balance'=>array('view'=>'layouts/application/dashboard/card',
+																				'card_style'=>'bg_orange bdr_pink white',
+									                      'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+									                      'card_title'=>'Ghiss Balance',
+									                      'card_count'=>!empty($value)?$value:'0.00',
+									                      'url'=>ADMIN_PATH.'stock_summary_reports/stock_summary_list?row=metal_summary&type_of=balance&end_date='
+									                      			.date("Y-m-d", strtotime("+1 day")),
+									                      'col'=>'col-lg-3 col-md-6'),
+												'ghiss_process_balance'=>array('view'=>'layouts/application/dashboard/card',
+																					'card_style'=>'bg_orange bdr_pink white',
+										                      'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+										                      'card_title'=>'Ghiss Process Balance',
+										                      'card_count'=>!empty($value)?$value:'0.00',
+										                      'url'=>ADMIN_PATH.'stock_summary_reports/stock_summary_list?row=metal_summary&type_of=balance&end_date='.date("Y-m-d", strtotime("+1 day")),
+										                      'col'=>'col-lg-3 col-md-6'),
+
+												'pending_ghiss_balance'=>array('view'=>'layouts/application/dashboard/card',
+																					'card_style'=>'bg_orange bdr_pink white',
+										                      'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+										                      'card_title'=>'Pending Ghiss Balance',
+										                      'card_count'=>!empty($value)?$value:'0.00',
+										                      'url'=>ADMIN_PATH.'stock_summary_reports/stock_summary_list?row=metal_summary&type_of=balance&end_date='.date("Y-m-d", strtotime("+1 day")),
+										                      'col'=>'col-lg-3 col-md-6'),
+
+												'gpc_out'=>array('view'=>'layouts/application/dashboard/card',
+																				'card_style'=>'bg_black bdr_cyan white',
+																				'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+																				'card_title'=>'GPC Out Balance',
+																				'card_count'=>!empty($value)?$value:'0.00',
+																				'url'=>ADMIN_PATH.'stock_summary_reports/stock_summary_list?row=hcl_wastage_balance&type_of=balance&end_date='
+																							.date("Y-m-d", strtotime("+1 day")),
+																				'col'=>'col-lg-3 col-md-6'),
+
+												'tounch_process'=>array('view'=>'layouts/application/dashboard/card',
+																				'card_style'=>'bg_pink bdr_cyan white',
+																				'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+																				'card_title'=>'Touch Out Process',
+																				'card_count'=>!empty($value)?$value:'0.00',
+																				'url'=>ADMIN_PATH.'stock_summary_reports/stock_summary_list?row=hcl_wastage_balance&type_of=balance&end_date='
+																							.date("Y-m-d", strtotime("+1 day")),
+																				'col'=>'col-lg-3 col-md-6'),
+
+												'tounch'=>array('view'=>'layouts/application/dashboard/card',
+																				'card_style'=>'bg_pink bdr_cyan white',
+																				'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+																				'card_title'=>'Touch Balance',
+																				'card_count'=>!empty($value)?$value:'0.00',
+																				'url'=>ADMIN_PATH.'stock_summary_reports/stock_summary_list?row=hcl_wastage_balance&type_of=balance&end_date='.date("Y-m-d", strtotime("+1 day")),
+																				'col'=>'col-lg-3 col-md-6'),
+
+												'default'=>array('view'=>'layouts/application/dashboard/card',
+																				'card_style'=>'bg_orange bdr_black text_black',
+																				'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+																				'card_title'=>strtoupper(str_replace("_"," ",$process)),
+																				'card_count'=>!empty($value)?$value:'0.00',
+																				'url'=>ADMIN_PATH.'stock_summary_reports/stock_report_department_wise_balance?lot_no='.$lot_no.'&in_lot_purity='.$in_lot_purity.'&'.http_build_query(array('where[department_name]'=>str_replace("_"," ",$process))).'&is_highlight=balance&can_edit=1',
+																				'col'=>'col-lg-3 col-md-6'),
+
+												'cutting'=>array('view'=>'layouts/application/dashboard/card',
+																				'card_style'=>'bg_orange bdr_black text_black',
+																				'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+																				'card_title'=>strtoupper(str_replace("_"," ",$process)),
+																				'card_count'=>!empty($value)?$value:'0.00',
+																				'url'=>ADMIN_PATH.'stock_summary_reports/stock_report_department_wise_balance?lot_no='.$lot_no.'&in_lot_purity='.$in_lot_purity.'&'.http_build_query(array('where[department_name]'=>str_replace("_"," ",$process))).'&is_highlight=balance&can_edit=1',
+																				'col'=>'col-lg-3 col-md-6'),
+												'chain_making'=>array('view'=>'layouts/application/dashboard/card',
+																				'card_style'=>'bg_orange bdr_black white',
+																				'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+																				'card_title'=>strtoupper(str_replace("_"," ",$process)),
+																				'card_count'=>!empty($value)?$value:'0.00',
+																				'url'=>ADMIN_PATH.'stock_summary_reports/chain_making_karigar_wise_balances?department_name=Chain Making',
+																				'col'=>'col-lg-3 col-md-6'),
+												'gpc'=>array('view'=>'layouts/application/dashboard/card',
+																				'card_style'=>'bg_orange bdr_black white',
+																				'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+																				'card_title'=>strtoupper(str_replace("_"," ",$process)),
+																				'card_count'=>!empty($value)?$value:'0.00',
+																				'url'=>ADMIN_PATH.'stock_summary_reports/stock_report_department_wise_balance?lot_no='.$lot_no.'&in_lot_purity='.$in_lot_purity.'&&department_name=gpc',
+																				'col'=>'col-lg-3 col-md-6'),
+												'hand_cutting'=>array('view'=>'layouts/application/dashboard/card',
+																				'card_style'=>'bg_orange bdr_black white',
+																				'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+																				'card_title'=>strtoupper(str_replace("_"," ",$process)),
+																				'card_count'=>!empty($value)?$value:'0.00',
+																				'url'=>ADMIN_PATH.'stock_summary_reports/stock_report_department_wise_balance?lot_no='.$lot_no.'&in_lot_purity='.$in_lot_purity.'&&department_name=hand_cutting',
+																				'col'=>'col-lg-3 col-md-6'),
+												'melting'=>array('view'=>'layouts/application/dashboard/card',
+																				'card_style'=>'bg_orange bdr_black white',
+																				'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+																				'card_title'=>strtoupper(str_replace("_"," ",$process)),
+																				'card_count'=>!empty($value)?$value:'0.00',
+																				'url'=>ADMIN_PATH.'stock_summary_reports/stock_report_department_wise_balance?lot_no='.$lot_no.'&in_lot_purity='.$in_lot_purity.'&&department_name=melting',
+																				'col'=>'col-lg-3 col-md-6'),
+												'filing'=>array('view'=>'layouts/application/dashboard/card',
+																				'card_style'=>'bg_orange bdr_black white',
+																				'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+																				'card_title'=>strtoupper(str_replace("_"," ",$process)),
+																				'card_count'=>!empty($value)?$value:'0.00',
+																				'url'=>ADMIN_PATH.'stock_summary_reports/stock_report_department_wise_balance?lot_no='.$lot_no.'&in_lot_purity='.$in_lot_purity.'&department_name=filing',
+																				'col'=>'col-lg-3 col-md-6'),
+												'buffing_hold'=>array('view'=>'layouts/application/dashboard/card',
+																				'card_style'=>'bg_orange bdr_black white',
+																				'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+																				'card_title'=>strtoupper(str_replace("_"," ",$process)),
+																				'card_count'=>!empty($value)?$value:'0.00',
+																				'url'=>ADMIN_PATH.'stock_summary_reports/stock_report_department_wise_balance?lot_no='.$lot_no.'&in_lot_purity='.$in_lot_purity.'&department_name=buffing_hold',
+																				'col'=>'col-lg-3 col-md-6')
+											);
+	if(HOST=='ARF'){
+		$card_array['hook']=array('view'=>'layouts/application/dashboard/card',
+																				'card_style'=>'bg_orange bdr_black white',
+																				'card_icon'=>THEME_PATH.'images/icons/new_order.png',
+																				'card_title'=>strtoupper(str_replace("_"," ",$process)),
+																				'card_count'=>!empty($value)?$value:'0.00',
+																				'url'=>ADMIN_PATH.'stock_summary_reports/chain_making_karigar_wise_balances?department_name=Hook',
+																				'col'=>'col-lg-3 col-md-6');
+	}
+											//?'.http_build_query(array('like[department_name]'=>str_replace("_"," ",$process))).'&is_highlight=balance&can_edit=1
+		return isset($card_array[$process])?$card_array[$process]:$card_array['default'];
+	}
+
+?>

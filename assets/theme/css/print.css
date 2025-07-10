@@ -1,0 +1,31 @@
+@media print {
+  .print .table {
+    color: #000 !important;
+  }
+
+  .print .table th,
+  .print .table td {
+    border-top: 1px solid #000 !important;
+  }
+
+  .print .table thead th {
+    border-bottom: 1px solid #000 !important;
+  }
+
+  .print .table tbody + tbody {
+    border-top: 2px solid #000 !important;
+  }
+
+  .print .table-bordered {
+    border: 1px solid #000 !important;
+  }
+
+  .print .table-bordered th,
+  .print .table-bordered td {
+    border: 1px solid #000 !important;
+  }
+
+  .print .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+  }
+}

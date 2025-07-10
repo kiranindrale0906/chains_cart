@@ -1,0 +1,66 @@
+.table{
+	thead{
+		tr{
+			th{
+				// white-space:nowrap;
+			}
+		}
+		&.nowrap{
+			white-space: nowrap;
+		}
+	}
+	&.table-default{
+		thead{
+			tr{
+				background-color:$blue;
+        color:$white;
+				th{					
+					a{
+						@extend %thm_color_com;
+						font-size: smaller;
+					}
+				}
+			}
+		}
+		tr{
+			&:nth-of-type(odd){
+				//@extend  %bg_thm_color;
+			}
+		}		
+	}
+	&.table-sm{
+    tr {
+      td{
+        vertical-align:middle;
+        padding: .3rem .5rem;
+        font-size: 0.923rem;
+      }
+      th{
+        padding:.5rem;
+        font-size: 0.923rem;
+        border-bottom-color:$blue;
+      }
+    }
+  }
+}
+
+.tableinput{
+	tr td{
+		border:none;
+		vertical-align: middle;
+		padding:5px;
+		input{
+			&:focus{
+				box-shadow:none;
+				outline:none;
+			}
+			//border:none;
+		}		
+		.form-group{
+			margin:0;
+		}
+	}
+}
+.btn_action{
+	white-space: nowrap;
+}

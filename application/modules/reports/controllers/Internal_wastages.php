@@ -1,0 +1,424 @@
+
+<?php 
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Internal_wastages extends BaseController {   
+  public function __construct(){     
+  parent::__construct();
+  $this->load->model(array('settings/issue_purity_model','settings/person_production_model','processes/process_model','issue_departments/issue_department_model','settings/internal_wastage_model','issue_and_receipts/internal_wastage_ledger_model','reports/daily_change_rolling_balance_report_model'));
+  } 
+
+  public function index() {
+    $this->data['records']=array();
+
+    $this->data['from_date'] = (!empty($_GET['from_date'])) ? date('Y-m', strtotime($_GET['from_date'])) : '';
+    $this->data['month'] = (!empty($_GET['from_date'])) ? date('m', strtotime($_GET['from_date'])) : '';
+    $this->data['year'] = (!empty($_GET['from_date'])) ? date('Y', strtotime($_GET['from_date'])) : '';
+    $this->data['to_date']   = (!empty($_GET['to_date']))   ? date('Y-m', strtotime($_GET['to_date']))   : '';
+    
+    
+    $where=array();
+    if(!empty($_GET['internal_wastages']['product_name'])) {
+      $this->data['record']['product_name'] = $_GET['internal_wastages']['product_name'];
+      $where['product_name']=$this->data['record']['product_name'];
+    }
+
+    $this->data['product_names']=$this->process_model->get('distinct(product_name) as name,product_name as id');
+    $process_wise_internal_wastage=$this->process_model->get('distinct(product_name)',$where);
+    $internal_wastages=array();
+
+    foreach ($process_wise_internal_wastage as $index => $value) {
+	    $this->get_internal_wastage_data($value['product_name']);
+      $this->get_hook_kdm_data($value['product_name']);
+      $this->get_refresh_details($value['product_name']);
+      $this->get_groups();
+      $get_internal_details=$this->get_internal_details($value['product_name']);
+      if($value['product_name']=="KA Chain" || $value['product_name']=="Ball Chain"){
+        $get_ka_ball_chain_details=$this->fancy_out_details($value['product_name'],92);
+        $ka_ball_chain_fancy_chain_92_weight=$get_ka_ball_chain_details[$value['product_name']]['weight'];
+        $ka_ball_chain_fancy_chain_92_vodator=$get_ka_ball_chain_details[$value['product_name']]['vodator'];
+        $get_ka_ball_chain_fancy_chain_75_details=$this->fancy_out_details($value['product_name'],75.25);
+        $ka_ball_chain_fancy_chain_75_weight=$get_ka_ball_chain_fancy_chain_75_details[$value['product_name']]['weight'];
+        $ka_ball_chain_fancy_chain_75_vodator=$get_ka_ball_chain_fancy_chain_75_details[$value['product_name']]['vodator'];
+        $this->data['records']['ka_ball_chain_fancy_92_chain'][$value['product_name']]['weight']=!empty($ka_ball_chain_fancy_chain_92_weight)?$ka_ball_chain_fancy_chain_92_weight:0;
+        $this->data['records']['ka_ball_chain_fancy_92_chain'][$value['product_name']]['vodator']=!empty($ka_ball_chain_fancy_chain_92_vodator)?$ka_ball_chain_fancy_chain_92_vodator:0;
+   
+        $this->data['records']['ka_ball_chain_fancy_75_chain'][$value['product_name']]['weight']=!empty($ka_ball_chain_fancy_chain_75_weight)?$ka_ball_chain_fancy_chain_75_weight:0;
+        $this->data['records']['ka_ball_chain_fancy_75_chain'][$value['product_name']]['vodator']=!empty($ka_ball_chain_fancy_chain_75_vodator)?$ka_ball_chain_fancy_chain_75_vodator:0;
+      }
+      if($value['product_name']=="Fancy Chain"||$value['product_name']=="Fancy 75 Chain"){
+        $where=array('process_name'=>"Pipe and Para Final Process");
+        $where['MONTH(completed_at)']=$this->data['month'];
+        $where['YEAR(completed_at)']=$this->data['year'];
+        if($value['product_name']=="Fancy 75 Chain"){
+          $where['in_lot_purity']=75.25;
+        }else{
+          $where['in_lot_purity!=']=75.25;
+        }
+        $get_pipe_and_para_details=$this->process_model->find('sum(daily_drawer_in_weight) out_weight',$where);
+        $pipe_and_para_weight=$get_pipe_and_para_details['out_weight'];
+        $this->data['records']['fancy_pipe_and_para'][$value['product_name']]['weight']=!empty($pipe_and_para_weight)?$pipe_and_para_weight:0;
+        $get_ka_chain_details=$this->fancy_out_details("KA Chain",92);
+        $ka_chain_fancy_chain_92_weight=$get_ka_chain_details["KA Chain"]['weight'];
+        $ka_chain_fancy_chain_92_vodator=$get_ka_chain_details["KA Chain"]['vodator'];
+        $get_ka_chain_fancy_chain_75_details=$this->fancy_out_details("KA Chain",75.25);
+        $ka_chain_fancy_chain_75_weight=$get_ka_chain_fancy_chain_75_details["KA Chain"]['weight'];
+        $ka_chain_fancy_chain_75_vodator=$get_ka_chain_fancy_chain_75_details["KA Chain"]['vodator'];
+        $this->data['records']['ka_chain_fancy_92_chain'][$value['product_name']]['weight']=!empty($ka_chain_fancy_chain_92_weight)?$ka_chain_fancy_chain_92_weight:0;
+        $this->data['records']['ka_chain_fancy_92_chain'][$value['product_name']]['vodator']=!empty($ka_chain_fancy_chain_92_vodator)?$ka_chain_fancy_chain_92_vodator:0;
+   
+        $this->data['records']['ka_chain_fancy_75_chain'][$value['product_name']]['weight']=!empty($ka_chain_fancy_chain_75_weight)?$ka_chain_fancy_chain_75_weight:0;
+        $this->data['records']['ka_chain_fancy_75_chain'][$value['product_name']]['vodator']=!empty($ka_chain_fancy_chain_75_vodator)?$ka_chain_fancy_chain_75_vodator:0;
+
+      
+        $get_ball_chain_details=$this->fancy_out_details("Ball Chain",92);
+        $ball_chain_fancy_chain_92_weight=$get_ball_chain_details["Ball Chain"]['weight'];
+        $ball_chain_fancy_chain_92_vodator=$get_ball_chain_details["Ball Chain"]['vodator'];
+        $get_ball_chain_fancy_chain_75_details=$this->fancy_out_details("Ball Chain",75.25);
+        $ball_chain_fancy_chain_75_weight=$get_ball_chain_fancy_chain_75_details["Ball Chain"]['weight'];
+        $ball_chain_fancy_chain_75_vodator=$get_ball_chain_fancy_chain_75_details["Ball Chain"]['vodator'];
+        $this->data['records']['ball_chain_fancy_92_chain'][$value['product_name']]['weight']=!empty($ball_chain_fancy_chain_92_weight)?$ball_chain_fancy_chain_92_weight:0;
+        $this->data['records']['ball_chain_fancy_92_chain'][$value['product_name']]['vodator']=!empty($ball_chain_fancy_chain_92_vodator)?$ball_chain_fancy_chain_92_vodator:0;
+   
+        $this->data['records']['ball_chain_fancy_75_chain'][$value['product_name']]['weight']=!empty($ball_chain_fancy_chain_75_weight)?$ball_chain_fancy_chain_75_weight:0;
+        $this->data['records']['ball_chain_fancy_75_chain'][$value['product_name']]['vodator']=!empty($ball_chain_fancy_chain_75_vodator)?$ball_chain_fancy_chain_75_vodator:0;
+        $internal_wastage_names=$this->internal_wastage_model->get("name",array("chain_name"=>$value['product_name']));
+        $get_internal_wastage_for_fancy_details=array();
+        $internal_wastage_fancy_details=array();
+        foreach ($internal_wastage_names as $internal_wastage_name_index => $internal_wastage_name_value) {
+          $get_internal_wastage_for_fancy_details=$this->get_internal_details($value['product_name'],$internal_wastage_name_value['name']);
+          $internal_wastage_fancy_details[$internal_wastage_name_value['name']]['weight']=$get_internal_wastage_for_fancy_details[$value['product_name']]['weight'];
+          $internal_wastage_fancy_details[$internal_wastage_name_value['name']]['vodator']=$get_internal_wastage_for_fancy_details[$value['product_name']]['vodator'];
+        }
+        
+        $this->data['fancy_chain_internal_wastages'][$value['product_name']]=$internal_wastage_fancy_details;
+        }
+      if($value['product_name']=="Sisma Chain"){
+        $get_sisma_3_mm_details=$this->get_internal_details($value['product_name'],"3 MM Para(1.5)");
+        $sisma_3_mm_para_weight=$get_sisma_3_mm_details[$value['product_name']]['weight'];
+        $sisma_3_mm_para_vodator=$get_sisma_3_mm_details[$value['product_name']]['vodator'];
+        $get_sisma_3_mm_anc_clipping_details=$this->get_internal_details($value['product_name'],"3 MM ANC CLIPING(3.5)");
+        $sisma_3_mm_anc_clipping_weight=$get_sisma_3_mm_anc_clipping_details[$value['product_name']]['weight'];
+        $sisma_3_mm_anc_clipping_vodator=$get_sisma_3_mm_anc_clipping_details[$value['product_name']]['vodator'];
+        $get_sisma_2_mm_para_details=$this->get_internal_details($value['product_name'],"2 MM Para");
+        $sisma_2_mm_para_weight=$get_sisma_2_mm_para_details[$value['product_name']]['weight'];
+        $sisma_2_mm_para_vodator=$get_sisma_2_mm_para_details[$value['product_name']]['vodator'];
+        $get_sisma_omega_details=$this->get_internal_details($value['product_name'],"omega(6)");
+        $sisma_omega_weight=$get_sisma_omega_details[$value['product_name']]['weight'];
+        $sisma_omega_vodator=$get_sisma_omega_details[$value['product_name']]['vodator'];
+         
+        $this->data['records']['sisma_3_mm_para'][$value['product_name']]['weight']=!empty($sisma_3_mm_para_weight)?$sisma_3_mm_para_weight:0;
+        $this->data['records']['sisma_3_mm_para'][$value['product_name']]['vodator']=!empty($sisma_3_mm_para_vodator)?$sisma_3_mm_para_vodator:0;
+   
+        $this->data['records']['sisma_2_mm_para'][$value['product_name']]['weight']=!empty($sisma_2_mm_para_weight)?$sisma_2_mm_para_weight:0;
+        $this->data['records']['sisma_2_mm_para'][$value['product_name']]['vodator']=!empty($sisma_2_mm_para_vodator)?$sisma_2_mm_para_vodator:0;
+   
+        $this->data['records']['sisma_3_mm_anc_clipping'][$value['product_name']]['weight']=!empty($sisma_3_mm_anc_clipping_weight)?$sisma_3_mm_anc_clipping_weight:0;
+        $this->data['records']['sisma_3_mm_anc_clipping'][$value['product_name']]['vodator']=!empty($sisma_3_mm_anc_clipping_vodator)?$sisma_3_mm_anc_clipping_vodator:0;
+   
+        $this->data['records']['sisma_omega'][$value['product_name']]['weight']=!empty($sisma_omega_weight)?$sisma_omega_weight:0;
+        $this->data['records']['sisma_omega'][$value['product_name']]['vodator']=!empty($sisma_omega_vodator)?$sisma_omega_vodator:0;
+   
+      }
+
+      $this->data['records']['productions'][$value['product_name']]=$this->data['production_total'][$this->data['from_date']];
+      $this->data['records']['refreshs'][$value['product_name']]=$this->data['refresh_total'][$this->data['from_date']];
+      $this->data['records']['hook_kdms'][$value['product_name']]=$this->data['hook_kdm_total'][$this->data['from_date']];
+      $this->data['records']['internals'][$value['product_name']]['weight']=!empty($get_internal_details[$value['product_name']]['weight'])?$get_internal_details[$value['product_name']]['weight']:0;
+      $this->data['records']['internals'][$value['product_name']]['vodator']=!empty($get_internal_details[$value['product_name']]['vodator'])?$get_internal_details[$value['product_name']]['vodator']:0;
+
+      $where_condition['where'] = array('balance_gross >' =>0,'product_name!=' =>"",'MONTH(transaction_date)'=>date("m",strtotime($this->data['from_date'])),"YEAR(transaction_date)"=>date("Y",strtotime($this->data['from_date']))); 
+      if(!empty($value['product_name'])){
+       $where_condition['where']['product_name'] = $value['product_name'];
+       $this->data['record']['chain_name'] = $value['product_name'];
+      }
+      $rolling_data = $this->daily_change_rolling_balance_report_model->find('sum(balance_fine) as balance_fine',$where_condition,array(),array('order_by'=>'created_at asc'));
+//	pd( $rolling_data);
+      $created_date = $this->daily_change_rolling_balance_report_model->find('created_at',$where_condition,array(),array('order_by'=>'created_at desc'));
+      $date=date("d",strtotime($created_date['created_at']));
+	if(date("m",strtotime($this->data['from_date']))==5){$date=21;}else{$date=$date;}
+//pd($date);      
+	$this->data['records']['rolling_data'][$value['product_name']]['weight']=($rolling_data['balance_fine']/$date);
+     }
+//pd($this->data['record']['rolling_data']);
+    $this->load->render('reports/internal_wastages/index',$this->data);
+  }
+  private function get_internal_wastage_data($product_name) {
+    $select = 'date(issue_departments.created_at) as created_at, 
+               processes.product_name,
+               processes.melting_lot_category_one as category_one, 
+               issue_departments.account_id as account_name,
+               sum(issue_department_details.out_weight) as issue_gpc_out';
+    $where = array('date(issue_departments.created_at) > ' => '2021-11-04');
+    $group_by = 'issue_departments.account_id';
+    $where['processes.product_name']= $product_name;
+
+    $select .= ' , issue_departments.created_at as str_created_date';
+    $group_by .= ' , date(issue_departments.created_at), issue_departments.in_purity, issue_departments.out_purity';
+    $select .= ' , issue_departments.in_purity as in_purity, 
+                   issue_departments.out_purity as out_purity';
+    $records = $this->issue_department_model->get($select, 
+                                  array_merge($where, array('issue_departments.product_name' => array('GPC Out', 'Repair Out', 'Finish Good'))),
+                                  array(array('issue_department_details', 'issue_department_details.issue_department_id = issue_departments.id'),
+                                  array('processes', 'issue_department_details.process_id = processes.id')),
+                                  array('group_by' => $group_by,
+                                        'order_by' => 'date(issue_departments.created_at), processes.product_name'));
+    $this->data['production_details'] = $this->get_grouped_records($records);
+    $this->get_production_group_total();
+  }
+  private function get_hook_kdm_data($product_name) {
+    $select = 'date(processes.created_at) as created_at, 
+               sum(processes.hook_in-processes.hook_out) as out_weight';
+    $where = array();
+    $where['processes.product_name']= $product_name;
+    $where['processes.department_name in ("Lobster","Lobster In","Lobster Out")']= NULL;
+    if($product_name=="Indo tally Chain"){
+      $where['processes.process_name']= "Final Process";
+    }elseif(in_array($product_name,array("Hollow Choco Chain","Lotus Chain","Roco Choco Chain","Hand Made Chain"))){
+      $where['processes.process_name']= "Final Process";
+    }elseif($product_name=="Imp Italy Chain"){
+      $where['processes.process_name']= "Final Process";
+    }elseif($product_name=="Choco Chain"){
+      $where['processes.process_name in ("Final Process","Imp Final Process")']= NULL;
+     }elseif($product_name=="Casting Chain"){
+      $where['processes.process_name in ("Casting 92","Casting 75")']= NULL;
+    }
+    $select .= ' , processes.in_lot_purity as in_purity, 
+                   processes.out_lot_purity as out_purity';
+    
+    $group_by= 'date(processes.created_at)';
+    $records = $this->process_model->get($select,$where,array(),array('group_by'=>$group_by));
+    $this->data['hook_kdm_details'] = $this->get_grouped_refresh_records($records);
+    $this->get_hook_kdm_group_total();
+  }
+  private function get_grouped_records($records) {
+    $date_wise_data = array();
+    foreach ($records as $record) {      
+        if (!isset($date_wise_data[substr($record['created_at'], 0, 7)])) 
+          $date_wise_data[substr($record['created_at'], 0, 7)] = array($record['account_name'] => array(), 'issue_gpc_out' => 0);
+        $date_wise_data[substr($record['created_at'], 0, 7)][$record['account_name']][] = $record;
+      }
+    ksort($date_wise_data);
+    return $date_wise_data;
+  }
+  private function get_grouped_refresh_records($records) {
+    $date_wise_data = array();
+    foreach ($records as $record) {      
+        if (!isset($date_wise_data[substr($record['created_at'], 0, 7)])) 
+          $date_wise_data[substr($record['created_at'], 0, 7)] = array("records" => array(), 'issue_gpc_out' => 0);
+        $date_wise_data[substr($record['created_at'], 0, 7)]["records"][] = $record;
+      }
+    ksort($date_wise_data);
+    return $date_wise_data;
+  }
+
+  private function get_production_group_total() {
+    $this->data['production_total'] = array();
+    foreach ($this->data['production_details'] as $group => $production_detail) {
+      foreach ($production_detail as $index => $records) {
+        foreach ($records as $record) {
+         if (!isset($this->data['production_total'][$group])) 
+          $this->data['production_total'][$group] = array(); 
+
+          if (!isset($this->data['production_total'][$group][$index]))
+          $this->data['production_total'][$group][$index]= array('weight' => 0, 'vadotar' => 0,'type'=>"");     
+          $this->data['production_total'][$group][$index]['weight'] += $record['issue_gpc_out'];
+          $this->data['production_total'][$group][$index]['vadotar'] += $record['issue_gpc_out'] * ($record['out_purity'] - $record['in_purity']) / 100;
+
+          $sql_query='select sub_group_code from  argold_accounts_may2022_production.ac_account
+                                where argold_accounts_may2022_production.ac_account.name ="'.$index.'"';
+          $query=$this->db->query($sql_query);
+          $account_name_detail = $query->row_array();
+          $this->data['production_total'][$group][$index]['type'] = $account_name_detail['sub_group_code'];
+
+        }
+      }
+    }
+  }
+
+   private function get_refresh_details($product_name) {
+    $select = 'date(created_at) as created_at, item_name, sum(weight) as weight, sum(weight * purity) / sum(weight) as purity, sum(weight * factory_purity) / sum(weight) as factory_purity';
+    $sql_query='select '.$select.' from  argold_accounts_production.refresh_details
+                                where argold_accounts_production.refresh_details.item_name ="'.$product_name.'" and argold_accounts_production.refresh_details.site_name ="AR Gold" group by date(created_at)';
+
+    $query=$this->db->query($sql_query);
+    $refresh_details = $query->result_array();
+    $this->data['refresh_details'] = $this->get_grouped_refresh_records($refresh_details);
+    $this->get_refresh_group_total();
+  }
+
+  private function get_refresh_group_total() {
+    $this->data['refresh_total'] = array();
+    foreach ($this->data['refresh_details'] as $group => $refresh_detail) {
+      $this->data['refresh_total'][$group] = array('weight' => 0, 'vadotar' => 0);
+      foreach ($refresh_detail['records'] as $record) {
+        $this->data['refresh_total'][$group]['weight'] += $record['weight'];
+        $this->data['refresh_total'][$group]['vadotar'] += $record['weight'] * ($record['purity'] - $record['factory_purity']) / 100;
+      }
+    }
+  }
+  private function get_hook_kdm_group_total() {
+    $this->data['hook_kdm_total'] = array();
+    foreach ($this->data['hook_kdm_details'] as $group => $hook_kdm_detail) {
+      $this->data['hook_kdm_details'][$group] = array('weight' => 0, 'vadotar' => 0);
+      foreach ($hook_kdm_detail['records'] as $record) {
+        $this->data['hook_kdm_total'][$group]['weight'] += $record['out_weight'];
+        $this->data['hook_kdm_total'][$group]['vadotar'] += $record['out_weight'] * ($record['in_purity'] - $record['out_purity']) / 100;
+      }
+    }
+  }
+
+  private function get_groups() {
+    $production_detail_groups = array_keys($this->data['production_details']);
+    $refresh_detail_groups = array_keys($this->data['refresh_details']);
+    $this->data['groups'] = array_unique(array_merge($production_detail_groups, $refresh_detail_groups));
+    sort($this->data['groups']);
+  }
+  public function get_internal_details($product_name,$name="") {
+     $this->data['period']= 'month';
+     $where=array('chain_name'=>$product_name);
+     if(!empty($name)){
+      $where['name']=$name;
+     }
+     $this->data['internal_wastages']=$this->internal_wastage_model->find('',$where);
+      
+    if(HOST=='ARF'){
+     $query = $this->db->query($this->internal_wastage_ledger_model->get_issue_department_records(ARF_DB_NAME,"AR Gold Software",$this->data['period'],$this->data['internal_wastages']['name'])." UNION ".$this->internal_wastage_ledger_model->get_issue_department_records(ARF_DB_NAME,"ARC Software",$this->data['period'],$this->data['internal_wastages']['name']));
+    }elseif(HOST=='ARC'){
+     $query = $this->db->query($this->internal_wastage_ledger_model->get_issue_department_records(ARC_DB_NAME,"AR Gold Software",$this->data['period'],$this->data['internal_wastages']['name'])." UNION ".$this->internal_wastage_ledger_model->get_issue_department_records(ARC_DB_NAME,"ARF Software",$this->data['period'],$this->data['internal_wastages']['name']));
+    }else{
+     $query = $this->db->query($this->internal_wastage_ledger_model->get_issue_department_records(ARGOLD_DB_NAME,"ARF Software",$this->data['period'],$this->data['internal_wastages']['name'])." UNION ".$this->internal_wastage_ledger_model->get_issue_department_records(ARGOLD_DB_NAME,"ARC Software",$this->data['period'],$this->data['internal_wastages']['name']));
+    }
+
+    $issues = $query->result_array();
+    foreach ($issues as $issue_index => $issue_value) {
+      $issues[$issue_index]['issue_fine']=($issue_value['weight']*$issue_value['issue_melting'])/100;
+      $issues[$issue_index]['vodator']=four_decimal($issue_value['fine']-$issues[$issue_index]['issue_fine']);
+    }
+
+    if(HOST=='ARF'){
+     $query = $this->db->query($this->internal_wastage_ledger_model->get_issue_department_records(ARGOLD_DB_NAME,"ARF Software",$this->data['period'],$this->data['internal_wastages']['name'])." UNION ".$this->internal_wastage_ledger_model->get_issue_department_records(ARC_DB_NAME,"ARF Software",$this->data['period'],$this->data['internal_wastages']['name']));
+    }elseif(HOST=='ARC'){
+     $query = $this->db->query($this->internal_wastage_ledger_model->get_issue_department_records(ARGOLD_DB_NAME,"ARC Software",$this->data['period'],$this->data['internal_wastages']['name'])." UNION ".$this->internal_wastage_ledger_model->get_issue_department_records(ARF_DB_NAME,"ARC Software",$this->data['period'],$this->data['internal_wastages']['name']));
+    }else{
+     $query = $this->db->query($this->internal_wastage_ledger_model->get_issue_department_records(ARF_DB_NAME,"AR Gold Software",$this->data['period'],$this->data['internal_wastages']['name'])." UNION ".$this->internal_wastage_ledger_model->get_issue_department_records(ARC_DB_NAME,"AR Gold Software",$this->data['period'],$this->data['internal_wastages']['name']));
+    }
+    $receipts = $query->result_array();
+    foreach ($receipts as $index => $value) {
+      $receipts[$index]['issue_fine']=($value['weight']*$value['issue_melting'])/100;
+      $receipts[$index]['vodator']=four_decimal($value['fine']-$receipts[$index]['issue_fine']);
+    }
+
+    $issue_created_dates = array_column($issues, 'created_date');
+    $receipt_created_dates = array_column($receipts, 'created_date');
+    $this->data['created_dates'] = array_values(array_unique(array_merge($issue_created_dates, $receipt_created_dates)));
+    asort($this->data['created_dates']);
+    $receipt_details = $this->get_records_by_created_date($receipts);
+    $issue_details = $this->get_records_by_created_date($issues);
+    $internal_wastages=trim($this->data['internal_wastages']['name']);
+    $internal_detail=array();
+    foreach ($receipt_details[$this->data['from_date']] as $receipt_index => $receipt_value) {
+      if($internal_wastages==trim($receipt_value['item'])){
+        $internal_detail['receipts'][$receipt_value['item']]['weight']+=$receipt_value['weight'];
+        $internal_detail['receipts'][$receipt_value['item']]['vodator']+=$receipt_value['vodator'];
+      }
+    }
+    foreach ($issue_details[$this->data['from_date']] as $issues_index => $issues_value) {
+      if($internal_wastages==trim($issues_value['item'])){
+        $internal_detail['issues'][$issues_value['item']]['weight']+=$issues_value['weight'];
+        $internal_detail['issues'][$issues_value['item']]['vodator']+=$issues_value['vodator'];
+      }
+    }
+    $receipt_weight=!empty($internal_detail['receipts'][$internal_wastages]['weight'])?$internal_detail['receipts'][$internal_wastages]['weight']:0;
+    $receipt_fine=!empty($internal_detail['receipts'][$internal_wastages]['vodator'])?$internal_detail['receipts'][$internal_wastages]['vodator']:0;
+    $issue_weight=!empty($internal_detail['issues'][$internal_wastages]['weight'])?$internal_detail['issues'][$internal_wastages]['weight']:0;
+    $issue_fine=!empty($internal_detail['issues'][$internal_wastages]['vodator'])?$internal_detail['issues'][$internal_wastages]['vodator']:0;
+    $internals[$product_name]['weight']=$receipt_weight-$issue_weight;
+    $internals[$product_name]['vodator']=$receipt_fine-$issue_fine;
+    return $internals;
+    }
+  protected function get_records_by_created_date($records) {
+    $records_by_created_date = array();
+    foreach($records as $record) {
+      if (!isset($records_by_created_date[$record['created_date']])) $records_by_created_date[$record['created_date']] = array();
+      $records_by_created_date[$record['created_date']][] = $record;
+    }
+    return $records_by_created_date;
+  }
+
+  private function fancy_out_details($product_name,$purity){
+    $this->data['product']= (!empty($product_name)) ? $product_name : '';
+    $this->data['purity']= (!empty($purity)) ? $purity : '';
+    $period_select = 'date_format(created_at,"%Y-%m") as created_date,';
+    $out_fancy_out_where='process_name="Fancy Out Process" and chain_name!="Refresh"';
+    if($this->data['product']=='KA Chain'){
+      $out_fancy_out_where.=" and melting_wastage>0 and product_name in ('KA Chain')";
+    }elseif($this->data['product']=='Ball Chain'){
+      $out_fancy_out_where.=" and melting_wastage>0 and product_name in ('Ball Chain')";
+    }
+    if(!empty($this->data['purity'])){
+
+      if($this->data['purity']<=75.25){
+      $out_fancy_out_where.=" and out_lot_purity<=".$this->data['purity'];
+      }else {
+      $out_fancy_out_where.=" and out_lot_purity >=91";
+      }
+    }
+    $receipts = array();
+      $out_fancy_out_fields = 'id,'.$period_select.'
+                             lot_no as lot_no,
+                             product_name as product_name, 
+                             CONCAT(melting_lot_category_one,"/",melting_lot_category_two,"/",design_code,"/",machine_size) as issue_type, 
+                             (melting_wastage) as weight,
+                             out_lot_purity as purity, 
+                             0 as issue_fine, 
+                             (melting_wastage*out_lot_purity/100) as fine, 
+                             created_at as created_at';
+      $query = $this->db->query("(select ".$out_fancy_out_fields." from      
+                                  processes where ".$out_fancy_out_where."
+                                  order by created_at asc
+                               )");
+    $issues = $query->result_array();
+
+    $wastage_purity=0;
+    $wastages=array();
+    // $this->issue_purity_model->get_issue_wastage($value['id'], '');
+    $issue_records=array();
+    foreach ($issues as $index => $value) {
+      $wastage=$this->issue_purity_model->get_issue_wastage($value['id'], '');
+     // if($wastage==$this->data['wastage']){
+     //   $issue_records[$index]=$value; 
+     //   $issue_records[$index]['wastage']=$wastage;
+     //   $issue_records[$index]['wastage_purity']=$wastage_purity=$value['purity']+$wastage; 
+     //    $issue_records[$index]['wastage_fine']=$wastage_fine=$value['weight']*$wastage_purity/100; 
+     //    $issue_records[$index]['wastage_diff']=$wastage_fine-$value['fine']; 
+     //  }
+	if(empty($this->data['wastage'])){
+        $issue_records[$index]=$value; 
+        $issue_records[$index]['wastage']=$wastage;  
+        $issue_records[$index]['wastage_purity']=$wastage_purity=$value['purity']+$wastage; 
+        $issue_records[$index]['wastage_fine']=$wastage_fine=$value['weight']*$wastage_purity/100; 
+        $issue_records[$index]['wastage_diff']=$wastage_fine-$value['fine']; 
+
+      }
+      
+      $wastages[]=$wastage;
+      
+    }
+    $issue_created_dates = array_column($issue_records, 'created_date');
+    $receipt_created_dates = array_column($receipts, 'created_date');
+    $this->data['created_dates'] = array_values(array_unique(array_merge($issue_created_dates, $receipt_created_dates)));
+    asort($this->data['created_dates']);
+    $issue_details = $this->get_records_by_created_date($issue_records);
+    $fancy_out_detail=array();
+    foreach ($issue_details[$this->data['from_date']] as $issues_index => $issues_value) {
+      $fancy_out_detail['issues']['weight']+=$issues_value['weight'];
+      $fancy_out_detail['issues']['wastage_diff']+=$issues_value['wastage_diff'];
+    }
+    $issue_weight=!empty($fancy_out_detail['issues']['weight'])?$fancy_out_detail['issues']['weight']:0;
+    $issue_fine=!empty($fancy_out_detail['issues']['wastage_diff'])?$fancy_out_detail['issues']['wastage_diff']:0;
+    $fancy_outs[$product_name]['weight']=$issue_weight;
+    $fancy_outs[$product_name]['vodator']=$issue_fine;
+    return $fancy_outs;
+    }
+}

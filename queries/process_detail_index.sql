@@ -1,0 +1,16 @@
+CREATE INDEX process_id_process_details ON process_details (process_id);
+CREATE INDEX lot_no_process_details ON process_details (lot_no);
+CREATE INDEX melting_lot_id_process_details ON process_details (melting_lot_id);
+CREATE INDEX out_weight_process_details ON process_details (out_weight);
+CREATE INDEX melting_wastage_process_details ON process_details (melting_wastage);
+CREATE INDEX hcl_wastage_process_details ON process_details (hcl_wastage);
+CREATE INDEX daily_drawer_wastage_process_details ON process_details (daily_drawer_wastage);
+CREATE INDEX hook_kdm_purity_process_details ON process_details (hook_kdm_purity);
+CREATE INDEX ghiss_process_details ON process_details (ghiss);
+CREATE INDEX loss_process_details ON process_details (loss);
+CREATE INDEX is_delete_process_details ON process_details (is_delete);
+CREATE INDEX hcl_ghiss_process_details ON process_details (hcl_ghiss);
+CREATE INDEX parent_lot_id_process_details ON process_details (parent_lot_id);
+CREATE INDEX parent_lot_name_process_details ON process_details (parent_lot_name);
+CREATE INDEX daily_drawer_out_weight_process_details ON process_details (daily_drawer_out_weight);
+CREATE INDEX daily_drawer_in_weight_process_details ON process_details (daily_drawer_in_weight);

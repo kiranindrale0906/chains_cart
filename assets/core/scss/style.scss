@@ -1,0 +1,63 @@
+@import "core/_variables.scss";
+@import "core/_mixin.scss";
+@import "core/_animation.scss";
+@import "core/_fonts.scss";
+
+@import "theme/_theme_color.scss";
+@import "theme/_header.scss";
+@import "theme/_footer.scss";
+@import "theme/_scrollbar.scss";
+@import "theme/_sidenavbar.scss";
+@import "theme/_print.scss";
+
+@import "components/_table.scss";
+@import "components/_cards.scss";
+@import "components/_pagination.scss";
+@import "components/_progressbar.scss";
+@import "components/_tab.scss";
+@import "components/_modals.scss";
+@import "components/_inputs.scss";
+@import "components/_buttons.scss";  
+@import "components/_form.scss";
+@import "components/_rating.scss";
+
+html, body{
+	margin:0;	
+	font-family: 'Montserrat', sans-serif;
+	font-size: 13px;
+	color: $black;
+	background-color: #f1f1f1;
+}
+
+.montserrat{
+  font-family: 'Montserrat', sans-serif;
+}
+
+main{
+  padding-top:50px;
+  //padding-bottom:40px;
+}
+
+.main_wrapper{
+  .wrapper_container{
+    padding:15px;
+    >.card-default{
+      .card-body.full_height{
+        min-height: calc(100vh - 80px);
+        padding:10px;
+      }
+    }
+  }
+}
+
+body.expand_sidemenu{  
+  .main_wrapper{
+    .wrapper_container{
+      padding-left: 265px;
+      @include maxsize(md) {
+        padding-left: 0;
+      }
+    }
+  }  
+}
+

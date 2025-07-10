@@ -1,0 +1,59 @@
+.table{
+  thead{
+    tr{
+      th{
+        // white-space:nowrap;
+      }
+    }
+    &.nowrap{
+      white-space: nowrap;
+    }
+  }
+  &.table-default{
+    thead{
+      tr{
+        @extend  %component_thm_color;
+        th{         
+          a{
+            @extend %thm_color_com;
+            font-size: smaller;
+          }
+        }
+      }
+    }
+    tr{
+      &:nth-of-type(odd){
+        //@extend  %bg_thm_color;
+      }
+    }   
+  }
+  &.table-xs{
+    tr {
+      th, td{
+        padding: 8px;
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+.tableinput{
+  tr td{
+    border:none;
+    vertical-align: middle;
+    padding:5px;
+    input{
+      &:focus{
+        box-shadow:none;
+        outline:none;
+      }
+      //border:none;
+    }   
+    .form-group{
+      margin:0;
+    }
+  }
+}
+.btn_action{
+  white-space: nowrap;
+}

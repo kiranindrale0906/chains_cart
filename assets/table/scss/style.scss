@@ -1,0 +1,32 @@
+
+
+@import "core/_variables.scss";
+@import "core/_mixin.scss";
+@import "core/_animation.scss";
+@import "core/_fonts.scss";
+
+@import "theme/_theme_color.scss";
+@import "theme/_table.scss";
+
+@import "components/_modals.scss";
+@import "components/_inputs.scss";
+@import "components/_buttons.scss";  
+@import "components/_form.scss";
+@import "components/_table.scss";
+
+
+html, body{
+	margin:0;	
+	font-family: 'Montserrat', sans-serif;
+	font-size: 13px;
+	color: $black; 
+	background-color: #f1f1f1;
+  .main_wrapper{
+    padding-top:0;
+  }
+}
+
+
+
+
+

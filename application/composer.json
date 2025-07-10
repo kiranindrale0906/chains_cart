@@ -1,0 +1,33 @@
+{
+    "description": "The CodeIgniter framework",
+    "name": "codeigniter/framework",
+    "type": "project",
+    "homepage": "https://codeigniter.com",
+    "license": "MIT",
+    "support": {
+        "forum": "http://forum.codeigniter.com/",
+        "wiki": "https://github.com/bcit-ci/CodeIgniter/wiki",
+        "irc": "irc://irc.freenode.net/codeigniter",
+        "source": "https://github.com/bcit-ci/CodeIgniter"
+    },
+    "require": {
+        "aws/aws-sdk-php": "^3.108",
+        "phpoffice/phpexcel": "^1.8",
+        "phpmailer/phpmailer": "^6.1",
+        "twilio/sdk": "5.31.0",
+        "google/auth": "^1.6",
+        "google/apiclient": "^2.0",
+        "mikehaertl/phpwkhtmltopdf": "2.4.1",
+        "picqer/php-barcode-generator": "^0.3.0",
+        "box/spout": "^2.7",
+        "2amigos/qrcode-library": "~1.1",
+        "tecnickcom/tc-lib-barcode": "^1.16",
+        "telegram-bot/api": "*"
+    },
+    "suggest": {
+        "paragonie/random_compat": "Provides better randomness in PHP 5.x"
+    },
+    "require-dev": {
+        "mikey179/vfsstream": "1.1.*"
+    }
+}

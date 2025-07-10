@@ -1,0 +1,1 @@
+<?php load_field('text',array('field' => 'pushtoken','col' => 'col-12')) ?>

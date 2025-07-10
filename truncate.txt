@@ -1,0 +1,73 @@
+truncate table accounts;
+truncate table issue_department_details;
+truncate table issue_departments;
+truncate table issue_hooks;
+truncate table melting_lot_alloy_details;
+truncate table melting_lot_details;
+truncate table melting_lots;
+truncate table parent_lots;
+truncate table process_details;
+truncate table process_groups;
+truncate table process_out_wastage_details;
+truncate table processes;
+truncate table rope_chain_bom_settings;
+truncate table rope_chain_orders;
+truncate table round_box_chain_orders;
+truncate table round_box_chain_bom_settings;
+truncate table out_weight_categories;
+truncate table process_qr_codes;
+truncate table product_wise_loss_categories;
+truncate table receipt_not_sent_argold_account;
+
+
+|            |          2 |
+|                 |          6 |
+|     |        166 |
+|  
+
+
+
+alter table accounts change is_delete is_delete tinyint(4) default 0;
+update accounts set is_delete=0 where is_delete is null;
+
+alter table column_prefrences change is_delete is_delete tinyint(4) default 0;
+update accounts set is_delete=0 where is_delete is null;
+
+alter table hcl_processes change is_delete is_delete tinyint(4) default 0;
+update hcl_processes set is_delete=0 where is_delete is null;
+
+alter table issue_department_details change is_delete is_delete tinyint(4) default 0;
+update issue_department_details set is_delete=0 where is_delete is null;
+
+alter table issue_departments change is_delete is_delete tinyint(4) default 0;
+update issue_departments set is_delete=0 where is_delete is null;
+
+alter table issue_hooks change is_delete is_delete tinyint(4) default 0;
+update issue_hooks set is_delete=0 where is_delete is null;
+
+alter table melting_lot_details change is_delete is_delete tinyint(4) default 0;
+update melting_lot_details set is_delete=0 where is_delete is null;
+
+alter table melting_lots change is_delete is_delete tinyint(4) default 0;
+update melting_lots set is_delete=0 where is_delete is null;
+
+alter table migrations change is_delete is_delete tinyint(4) default 0;
+update migrations set is_delete=0 where is_delete is null;
+
+alter table process_details change is_delete is_delete tinyint(4) default 0;
+update process_details set is_delete=0 where is_delete is null;
+
+alter table processes change is_delete is_delete tinyint(4) default 0;
+update processes set is_delete=0 where is_delete is null;
+
+alter table rope_chain_flatting_groups change is_delete is_delete tinyint(4) default 0;
+update rope_chain_flatting_groups set is_delete=0 where is_delete is null;
+
+alter table user_roles change is_delete is_delete tinyint(4) default 0;
+update user_roles set is_delete=0 where is_delete is null;
+
+alter table users change is_delete is_delete tinyint(4) default 0;
+update users set is_delete=0 where is_delete is null;
+
+alter table users_user_roles change is_delete is_delete tinyint(4) default 0;
+update users_user_roles set is_delete=0 where is_delete is null;

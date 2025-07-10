@@ -1,0 +1,145 @@
+.process_table {
+  font-size:0.78rem; 
+  border:1px solid $dark_gray;   
+  .thead {
+    background-color: $light_blue;
+    font-weight:$medium;
+    text-transform:uppercase;
+    position:sticky;
+    top:50px;
+    .trow{      
+      &:first-child{
+        background-color:$blue;
+        div{          
+          color:$white;
+          padding:5px 10px;
+          text-transform:uppercase;
+          font-weight:$bold;
+          width:100%;
+          text-align:left;
+        }
+      }
+      &:last-child{
+        height:35px;
+        background-color:$light_blue;
+        //white-space:nowrap;
+        //line-height:1;
+      }      
+    }  
+  }
+  .trow {
+    display:flex;
+    display:-webkit-flex;
+    display:-moz-flex;
+    display:-o-flex;
+    flex-direction:row;
+    -webkit-flex-direction:row;
+    -moz-flex-direction:row;
+    -ms-flex-direction:row;
+    form{
+      display: inherit;
+    }     
+    input{
+      width:100%;
+      height:23px;
+      display: inline-block;
+      text-align:right;        
+    }
+  }  
+  .tfoot .trow div.tcell,
+  .tbody .trow div.tcell,
+   .thead .trow div.tcell {
+      padding: 3px;
+      border: 1px dotted $gray;
+      //white-space:nowrap;
+      text-align:right;
+      width: 66px;
+      &.action_div{
+        width:90px;
+      } 
+  }
+  .tbody .trow div.tcell{
+    text-align:right;    
+    //min-width:50px;
+    .add_link{
+      vertical-align: -webkit-baseline-middle;
+    }
+  }  
+  .tfoot {
+    background-color: $light_blue;
+    font-weight:$medium;
+    text-transform:uppercase;
+    position:sticky;
+    bottom:0; 
+    .trow{
+      min-height:16px;
+      max-height:16px;
+      line-height:1;
+      div.total_width{
+        span{
+          width:66%;
+          display:block;
+        }
+      }
+    }    
+  }
+  .tbody {
+    .trow {
+      min-height: 45px;
+      max-height: 45px;
+    }
+    form{
+      &:nth-child(even){
+        .trow{
+          background-color:$light_gray;
+        }
+      }
+      &:nth-child(odd){
+        .trow{
+          background-color:$white;
+        }
+      }
+    }
+  }
+  form{
+    &.fields-group-sm{
+      .form-control{
+        height:20px;
+        font-size:0.75rem;
+        color:$black;
+        padding:2px;
+      }
+      .bootstrap-select {
+        padding:0px;  
+        .dropdown-menu{
+          li{
+            font-size: 0.75rem;
+          }
+        }            
+        .dropdown-toggle{
+          &.btn-default{
+            height: 20px;
+            font-size: 0.75rem;
+            line-height: 1;
+          }
+        }
+      }
+    }
+  }
+}
+
+.bootstrap-select{
+  .dropdown-item{
+    padding: 2px 5px !Important;
+    font-size: 0.75rem;
+  }
+}
+
+
+.table_blue{
+  thead{
+    background-color:$blue;
+    color:$white;
+  }
+}
+

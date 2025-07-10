@@ -1,0 +1,15 @@
+<?php
+
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Migration_add_company_name_in_issue_departments_ extends CI_Model {
+
+  public function up()
+  {
+    // $this->db->query("ALTER TABLE `issue_departments` ADD `company_name` VARCHAR(255) NOT NULL");
+  }
+
+
+}
+
+?>
