@@ -111,7 +111,7 @@ class Melting_lot_model extends BaseModel{
     );
 
 
-    if ($this->attributes['process_name'] == 'Casting'
+    if ($this->attributes['process_name'] == 'Rope Chain'
         && $this->attributes['lot_purity'] > 0){
         
         $rules[] =array('field' => 'melting_lots[lot_purity]', 'label' => 'Lot Purity',
@@ -126,7 +126,7 @@ class Melting_lot_model extends BaseModel{
                                     'less_than_equal_to'=>"Please enter purity less than 99.99"));
       }
     
-    if (in_array($this->attributes['process_name'],array('Casting'))) 
+    if (in_array($this->attributes['process_name'],array('Rope Chain'))) 
       $rules[]=array('field' => 'melting_lots[parent_lot_id]', 'label' => 'Parent Lot',
                      'rules' => 'trim|required|max_length[64]',
                      'errors'=>array('required'=>'Parent Lot is required'));
@@ -269,8 +269,8 @@ class Melting_lot_model extends BaseModel{
     $srno = $this->find('max(srno) + 1 as srno', array('process_name' => $this->attributes['process_name']))['srno'];
     $srno = (!empty($srno) ? $srno : 1);
     $this->attributes['srno'] = $srno;
-   if ($this->attributes['process_name'] == 'Casting') {
-      $this->attributes['lot_no'] = strtoupper('CP-'.sprintf("%02d", $this->attributes['lot_purity']).'-'.sprintf("%02d", $srno));
+   if ($this->attributes['process_name'] == 'Rope Chain') {
+      $this->attributes['lot_no'] = strtoupper('RP-'.sprintf("%02d", $this->attributes['lot_purity']).'-'.sprintf("%02d", $srno));
     } elseif ($this->attributes['process_name'] == 'Office Outside KDM') {
       $this->attributes['lot_no'] = strtoupper('KDM-'.sprintf("%02d", $srno));
     } elseif ($this->attributes['process_name'] == 'Office Outside Lobster') {
