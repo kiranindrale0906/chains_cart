@@ -34,13 +34,13 @@
                                'col'=>'col-md-6 category_two'));
       }
 
-      if(isset($process_name) &&
-              (
-              $process_name == 'Rope Chain') ) {
+      if(isset($process_name) && ($process_name == 'Rope Chain') ) {
           load_field('dropdown', array('field' => 'category_three','id' => 'category_three',
                              'col'=>'col-md-6 category_three'));
-      load_field('dropdown', array('field' => 'category_four','id' => 'category_four',
+          load_field('dropdown', array('field' => 'category_four','id' => 'category_four',
                            'col'=>'col-md-6 category_four'));
+          load_field('dropdown', array('field' => 'category_five','id' => 'category_five',
+                           'col'=>'col-md-6 category_five'));
       }
      
     ?>
@@ -72,6 +72,7 @@
   var category_two = <?= json_encode(get_category_two()) ?>;
   var category_three = <?= json_encode(get_category_three()) ?>;
   var category_four = <?= json_encode(get_category_four()) ?>;
+  var category_five = <?= json_encode(get_category_five()) ?>;
   var tone = <?= json_encode(get_melting_lots_tone()) ?>;
   var order_ids = <?php echo json_encode(@$order_ids); ?>;
   var selected_parent_lot_id = '<?php echo @$_GET['parent_lot_id']; ?>';

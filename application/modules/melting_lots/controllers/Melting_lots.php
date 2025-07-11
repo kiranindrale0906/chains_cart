@@ -156,7 +156,7 @@ class Melting_lots extends BaseController {
     $this->data['machine_chain_options']= get_machine_chain_options();
 
     $this->data['process_name'] =  isset($_GET['process_name']) ? $_GET['process_name'] : $this->data['record']['process_name'];
-    $this->data['parent_lots']=$this->parent_lot_model->get('id, name', array('status' => 0));
+    $this->data['parent_lots']=$this->parent_lot_model->get('id, name', array('status' => 0,''));
     if(HOST=="AR Gold Internal"){
       if($this->data['process_name']=="Indo tally Pasta Chain Internal"){
         $this->data['process_name']="Indo tally Chain Internal";

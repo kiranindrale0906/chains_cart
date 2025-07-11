@@ -7,6 +7,7 @@ function onready_melting_lot() {
 	onchange_category_one();
 	onchange_category_two();
 	onchange_category_three();
+	onchange_category_four();
 	set_form_fields();
 	
 	
@@ -66,13 +67,8 @@ function onchange_category_one() {
 		$('select[name*="melting_lots[category_three]"] option').remove();
 		$("select[name*='melting_lots[category_three]']").selectpicker('refresh');
 
-		if (process_name == 'Machine Chain' || process_name == 'Rope Chain'|| process_name == 'Solid Rope Chain'
-				|| process_name == 'Round Box Chain' || process_name == 'Choco Chain') {
+		if (process_name == 'Rope Chain') {
 			set_category_two_options();
-		}
-		if (process_name == 'Lopster') {
-	    var category_one = $('select[name*="melting_lots[category_one]"] option:selected').val();
-	    window.location = base_url+ 'melting_lots/melting_lots/create?process_name='+process_name+'&category_one='+category_one;
 		}
 	});
 
@@ -89,8 +85,7 @@ function onchange_category_two() {
 		}
 		var process_name = $('select[name*="melting_lots[process_name]"] option:selected').val();
 		var category_one = $('select[name*="melting_lots[category_one]"] option:selected').val();
-		if (process_name == 'Machine Chain' || process_name == 'Rope Chain'|| process_name == 'Solid Rope Chain'
-				|| process_name == 'Round Box Chain') {
+		if (process_name == 'Rope Chain') {
 			set_category_three_options();
 		}
 	})
@@ -104,8 +99,20 @@ function onchange_category_three() {
 		$("select[name*='melting_lots[category_four]']").selectpicker('refresh');
 	    }
 		var process_name = $('select[name*="melting_lots[process_name]"] option:selected').val();
-		if (process_name == 'Round Box Chain') {
+		if (process_name == 'Rope Chain') {
 			set_category_four_options();
+		}
+	})
+}function onchange_category_four() {
+	$('select[name*="melting_lots[category_four]"]').on('change', function() {
+		var process_name = $('select[name*="melting_lots[process_name]"] option:selected').val();
+		if (process_name != 'KA Chain' && process_name != 'Ball Chain') {
+		$('select[name*="melting_lots[category_five]"] option').remove();
+		$("select[name*='melting_lots[category_five]']").selectpicker('refresh');
+	    }
+		var process_name = $('select[name*="melting_lots[process_name]"] option:selected').val();
+		if (process_name == 'Rope Chain') {
+			set_category_five_options();
 		}
 	})
 }
@@ -206,14 +213,32 @@ function set_category_four_options() {
 	var category_one = $('select[name*="melting_lots[category_one]"] option:selected').val();
 	var category_two = $('select[name*="melting_lots[category_two]"] option:selected').val();
 	var category_three = $('select[name*="melting_lots[category_three]"] option:selected').val();
-
 	var category_four_values = category_four[process_name][category_one][category_two][category_three];
-
 	if (typeof category_four_values != 'undefined' ) {
 		for (var i = 0; i < category_four_values.length; i++) {
 			$('#category_four').append("<option value="+category_four_values[i].id+">"+category_four_values[i].name+"</option>");
 		}
 		$("select[name*='melting_lots[category_four]']").selectpicker('refresh');
+	}
+	if (process_name == 'Rope Chain') {
+			set_category_five_options();
+		}
+}
+
+function set_category_five_options() {
+	$('#category_five').empty();
+	var process_name = $('select[name*="melting_lots[process_name]"] option:selected').val();
+	var category_one = $('select[name*="melting_lots[category_one]"] option:selected').val();
+	var category_two = $('select[name*="melting_lots[category_two]"] option:selected').val();
+	var category_three = $('select[name*="melting_lots[category_three]"] option:selected').val();
+	var category_four = $('select[name*="melting_lots[category_four]"] option:selected').val();
+	var category_five_values = category_five[process_name][category_one][category_two][category_three][category_four];
+
+	if (typeof category_five_values != 'undefined' ) {
+		for (var i = 0; i < category_five_values.length; i++) {
+			$('#category_five').append("<option value="+category_five_values[i].id+">"+category_five_values[i].name+"</option>");
+		}
+		$("select[name*='melting_lots[category_five]']").selectpicker('refresh');
 	}
 }
 

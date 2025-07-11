@@ -227,7 +227,7 @@
     .table-cell {
      padding: 8px 12px;
       font-size: 13px;
-      width: 100px;
+      width: 115px;
       text-align: center;
       border-right: 1px solid #e0e0e0;
       display: flex;

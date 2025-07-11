@@ -75,6 +75,7 @@ function get_field_attribute($table, $field) {
     'category_two' => array('Category Two', '', FALSE, '', TRUE),
     'category_three' => array('Category Three', '', FALSE, '', TRUE),
     'category_four' => array('Category Four', '', FALSE, '', TRUE),
+    'category_five' => array('Category Five', '', FALSE, '', TRUE),
     'type' => array('Type', '', FALSE, '', TRUE),
     'lot_purity' => array('Purity', '', TRUE, '', TRUE),
     'lot_no' => array('Lot no', '', TRUE, '', TRUE),

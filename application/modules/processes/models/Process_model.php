@@ -326,15 +326,7 @@ class Process_model extends BaseModel {
     
     // } 
     
-     if (HOST=="AR Gold" && in_array($this->attributes['department_name'],array("Flatting","Tounch Department","Tounch Hold Department"))) {
-        $melting_department_detail=$this->process_model->find('in_lot_purity',array('melting_lot_id'=>$this->attributes['melting_lot_id'],'department_name'=>"Melting"));
-       if(!empty($melting_department_detail)){
-        $greater_than=$melting_department_detail['in_lot_purity']-0.20;
-        $less_than=$melting_department_detail['in_lot_purity']+0.20;
-        $rules['store'][] = array('field' => 'tounch_purity', 'label' => 'tounch_purity',
-                                  'rules' => array('trim', 'numeric','required', 'greater_than_equal_to['.$greater_than.']','less_than_equal_to['.$less_than.']'));
-        }
-      }
+     
 
     if (   $this->attributes['product_name'] != 'Receipt' 
         && $this->attributes['product_name'] != 'Hallmark' 
@@ -504,7 +496,15 @@ class Process_model extends BaseModel {
 
     if ($this->attributes['out_rod'] > 0)
       $rules['update'][] = greater_than_equal_to_0_validation('out_rod', 'Out Rod', $this->attributes['in_plain_rod']);
-
+    if (HOST=="AR Gold" && in_array($this->attributes['department_name'],array("Tounch Department"))) {
+        $melting_department_detail=$this->process_model->find('in_lot_purity',array('melting_lot_id'=>$this->attributes['melting_lot_id'],'department_name'=>"Tounch Hold Department"));
+       if(!empty($melting_department_detail)){
+        $greater_than=$melting_department_detail['in_lot_purity']-0.20;
+        $less_than=$melting_department_detail['in_lot_purity']+0.20;
+        $rules['update'][] = array('field' => 'tounch_purity', 'label' => 'tounch_purity',
+                                  'rules' => array('trim', 'numeric','required', 'greater_than_equal_to['.$greater_than.']','less_than_equal_to['.$less_than.']'));
+        }
+      }
     $process_rules = $this->add_controller_to_validation_rules($this->router_class, $klass, $rules[$klass]);
 
 		return $process_rules;	
