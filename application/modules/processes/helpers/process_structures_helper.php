@@ -441,7 +441,8 @@ function melting_structure($process = '', $department_name = '', $sub_department
         array(array('Description', 'description', 'label_with_value', '', '')),
         array(array('In Rod', 'in_rod', 'text_with_add_more', 'total', '')),
 
-        array(array('Out Rod', 'out_rod', 'text', 'total', '')), out_common_structure('text'),
+        array(array('Out Rod', 'out_rod', 'text', 'total', '')),
+        out_common_structure('text'),
         wastage_loss_structure('daily_drawer_wastage', 'wastage', 'loss'),
         tounch_structure(),
         ghiss_structure('text_with_add_more'),
@@ -449,6 +450,7 @@ function melting_structure($process = '', $department_name = '', $sub_department
 
  $structure['rope_chain_melting_process'] = array_merge(
         in_common_structure('in_lot_purity', 'in_weight', '', $department_name,$sub_department_name),
+        array(array('Karigar', 'karigar', 'karigar_dropdown', '')),
         out_common_structure('text'),
         wastage_loss_structure('melting_wastage', 'wastage', '', '', false),
          array(array('Loss', 'loss', 'text_with_add_more', '', '')),
@@ -481,6 +483,8 @@ function melting_structure($process = '', $department_name = '', $sub_department
 function tounch_department_structure($process = '', $department_name = '')
 {
     $structure['common'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name), array(array('Description', 'description', 'label_with_value', '', '')),
+        array(array('Karigar', 'karigar', 'karigar_dropdown', '')),
+        
         array(array('OUT WEIGHT', 'out_weight', 'text', 'total', '')),
         ghiss_structure('text_with_add_more'),
         array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
@@ -494,6 +498,8 @@ function tounch_department_structure($process = '', $department_name = '')
 function stripping_structure($process = '', $department_name = '')
 {
     $structure['common'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name), array(array('Description', 'description', 'label_with_value', '', '')),
+        array(array('Karigar', 'karigar', 'karigar_dropdown', '')),
+        
         array(array('OUT WEIGHT', 'out_weight', 'text', 'total', '')),
         array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
         wastage_loss_structure('melting_wastage', 'wastage', 'loss', '', false),
@@ -504,6 +510,8 @@ function stripping_structure($process = '', $department_name = '')
 function bull_block_structure($process = '', $department_name = '')
 {
     $structure['common'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name), array(array('Description', 'description', 'label_with_value', '', '')),
+        array(array('Karigar', 'karigar', 'karigar_dropdown', '')),
+        
         array(array('OUT WEIGHT', 'out_weight', 'text', 'total', '')),
         array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
         wastage_loss_structure('melting_wastage', 'wastage', 'loss', '', false),
@@ -515,6 +523,8 @@ function bull_block_structure($process = '', $department_name = '')
 function wire_making_structure($process = '', $department_name = '')
 {
     $structure['common'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name), array(array('Description', 'description', 'label_with_value', '', '')),
+        array(array('Karigar', 'karigar', 'karigar_dropdown', '')),
+        
         array(array('OUT WEIGHT', 'out_weight', 'text', 'total', '')),
         array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
         wastage_loss_structure('hcl_wastage', 'wastage', '', '', false),
@@ -525,6 +535,7 @@ function wire_making_structure($process = '', $department_name = '')
 function tube_forming_structure($process = '', $department_name = '')
 {
     $structure['common'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name), array(array('Description', 'description', 'label_with_value', '', '')),
+        array(array('Karigar', 'karigar', 'karigar_dropdown', '')),
         array(array('OUT WEIGHT', 'out_weight', 'text', 'total', '')),
         array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
         array(array('FE IN', 'fe_in', 'text', 'total', '')),
@@ -538,6 +549,8 @@ function tube_forming_structure($process = '', $department_name = '')
 function machine_department_structure($process = '', $department_name = '')
 {
     $structure['rope_chain_machine_process'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name),
+        array(array('Karigar', 'karigar', 'karigar_dropdown', '')),
+        
         array(array('OUT WEIGHT', 'out_weight', 'text', 'total', '')),
         array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
         wastage_loss_structure('hcl_wastage', 'wastage', '', '', false),
@@ -546,6 +559,8 @@ function machine_department_structure($process = '', $department_name = '')
 }function drum_structure($process = '', $department_name = '')
 {
     $structure['rope_chain_machine_process'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name),
+        array(array('Karigar', 'karigar', 'karigar_dropdown', '')),
+        
         array(array('OUT WEIGHT', 'out_weight', 'text', 'total', '')),
         array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
         wastage_loss_structure('hcl_wastage', 'wastage', 'loss', '', false),
@@ -554,6 +569,8 @@ function machine_department_structure($process = '', $department_name = '')
 }function drum_i_structure($process = '', $department_name = '')
 {
     $structure['rope_chain_machine_process'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name),
+        array(array('Karigar', 'karigar', 'karigar_dropdown', '')),
+        
         array(array('OUT WEIGHT', 'out_weight', 'text', 'total', '')),
         array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
         wastage_loss_structure('melting_wastage', 'wastage', 'loss', '', false),
@@ -569,6 +586,8 @@ function machine_department_structure($process = '', $department_name = '')
             array('LOT PURITY ', 'in_lot_purity', 'label_with_value', '', ''),
             array('IN', 'in_weight', 'label_with_value', 'total', ''),
             array('IN PURITY ', 'in_purity', 'label_with_value', '', '')),
+        array(array('Karigar', 'karigar', 'karigar_dropdown', '')),
+        
         out_common_structure('text', '$out_purity'),
         array(array('HCL Loss', 'hcl_loss', 'label_with_value', 'total', ''),
         array('FE Out', 'fe_out', 'label_with_value', 'total', ''),
@@ -583,6 +602,8 @@ function hook_structure($process = '', $department_name = '')
         array(array('PARENT LOT NO', 'parent_lot_name', 'label_with_text', '')),
         in_common_structure('in_lot_purity', 'in_weight', 'in_purity', $department_name),
         hook_in_structure(array('Hook')),
+        array(array('Karigar', 'karigar', 'karigar_dropdown', '')),
+        
         out_common_structure('text'),
         array(array('Wastage Purity', 'wastage_purity', 'label_with_value', '', '')),
         wastage_loss_structure('hcl_wastage', 'wastage', ''),
@@ -596,6 +617,8 @@ function hook_i_structure($process = '', $department_name = '')
         array(array('PARENT LOT NO', 'parent_lot_name', 'label_with_text', '')),
         in_common_structure('in_lot_purity', 'in_weight', 'in_purity', $department_name),
         hook_in_structure(array('Hook')),
+        array(array('Karigar', 'karigar', 'karigar_dropdown', '')),
+        
         out_common_structure('text'),
         array(array('Wastage Purity', 'wastage_purity', 'label_with_value', '', '')),
         wastage_loss_structure('melting_wastage', 'wastage', ''),
@@ -865,6 +888,8 @@ function flatting_structure($process = '', $department_name = '')
 {
 
     $structure['common'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name), array(array('Description', 'description', 'label_with_value', '', '')),
+        array(array('Karigar', 'karigar', 'karigar_dropdown', '')),
+        
         array(array('OUT WEIGHT', 'out_weight', 'text', 'total', '')),
         array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
         wastage_loss_structure('melting_wastage', 'wastage', 'loss', '', false),
