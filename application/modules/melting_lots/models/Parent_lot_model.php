@@ -26,8 +26,8 @@ class Parent_lot_model extends BaseModel{
     $srno = (!empty($srno) ? $srno : 1);
     $lot_purity = round($this->attributes['lot_purity']);
     $this->attributes['srno'] = $srno;
-    if($this->attributes['process_name']=='Casting'){
-      $this->attributes['name'] = strtoupper($lot_purity.'CP-'.sprintf("%02d", $srno));
+    if($this->attributes['process_name']=='Rope Chain'){
+      $this->attributes['name'] = strtoupper($lot_purity.'RC-'.sprintf("%02d", $srno));
     } else {
       pd($this->attributes['process_name'].' to be added in list');
     }
