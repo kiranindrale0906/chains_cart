@@ -1337,7 +1337,7 @@ $this->attributes['loss'] = four_decimal($this->attributes['loss']);
         //reduce wastage_weight from in_weight in calculation
         $total_in_weight       = $in_weight + $fe_weight + $hook_and_alloy_weight - $wastage_weight-$this->attributes['melting_wastage'];
         $total_in_weight_gross = $in_weight_gross + $hook_and_alloy_weight - $wastage_weight_gross-$this->attributes['melting_wastage'];
-        $total_in_weight_fine  = $in_weight_fine + $hook_fine - $wastage_weight_fine-$this->attributes['melting_wastage'];
+        $total_in_weight_fine  = $in_weight_fine + $hook_fine - $wastage_weight_fine;
         echo 0;
       }
       
@@ -1346,7 +1346,7 @@ $this->attributes['loss'] = four_decimal($this->attributes['loss']);
         $this->attributes['out_purity']     = $total_in_weight_gross / $total_in_weight * 100;
         $this->attributes['out_lot_purity'] = $total_in_weight_fine / $total_in_weight_gross * 100;
 
-        echo $total_in_weight;echo "kk";echo $total_in_weight_fine;echo "kk";echo $this->attributes['out_lot_purity'];echo "kk"; pd($total_in_weight_gross);
+        echo $total_in_weight;echo "  kk  ";echo $total_in_weight_fine;echo "  kk  ";echo $this->attributes['out_lot_purity'];echo "  kk  "; pd($total_in_weight_gross);
         return;
       }
     }
