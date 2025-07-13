@@ -1310,7 +1310,6 @@ $this->attributes['loss'] = four_decimal($this->attributes['loss']);
         $wastage_weight       =   $this->attributes['hcl_wastage'] + $this->attributes['hcl_ghiss'] + $this->attributes['loss'] 
                                 + $this->attributes['melting_wastage'] + $this->attributes['daily_drawer_wastage']+ $this->attributes['cz_wastage'] + $this->attributes['ghiss'] + $this->attributes['pending_ghiss'] 
                                 + $this->attributes['tounch_in'] + $this->attributes['fire_tounch_in'] + $this->attributes['solder_wastage'];
-
         $wastage_weight_gross = $wastage_weight * $this->attributes['in_purity'] / 100;
         $wastage_weight_fine  = $wastage_weight_gross * $this->attributes['in_lot_purity'] / 100;
       } elseif (in_array($this->attributes['department_name'], $this->set_wastage_purity_to_100)) {
@@ -1330,7 +1329,6 @@ $this->attributes['loss'] = four_decimal($this->attributes['loss']);
         $total_in_weight       = $in_weight + $fe_weight + $hook_and_alloy_weight;
         $total_in_weight_gross = $in_weight_gross + $hook_and_alloy_weight;
         $total_in_weight_fine  = $in_weight_fine + $hook_fine;
-        echo 1;
       } else {
 
         //in case of addition of fe_in where hook is also added.... wastage_purity will be same as in_purity
@@ -1338,15 +1336,11 @@ $this->attributes['loss'] = four_decimal($this->attributes['loss']);
         $total_in_weight       = $in_weight + $fe_weight + $hook_and_alloy_weight - $wastage_weight-$this->attributes['melting_wastage'];
         $total_in_weight_gross = $in_weight_gross + $hook_and_alloy_weight - $wastage_weight_gross-$this->attributes['melting_wastage'];
         $total_in_weight_fine  = $in_weight_fine + $hook_fine - $wastage_weight_fine;
-        echo 0;
       }
-      
-
+     
       if ($total_in_weight != 0 && $total_in_weight_gross != 0) {
         $this->attributes['out_purity']     = $total_in_weight_gross / $total_in_weight * 100;
-        $this->attributes['out_lot_purity'] = $total_in_weight_fine / $total_in_weight_gross * 100;
-
-        echo $total_in_weight;echo "  kk  ";echo $total_in_weight_fine;echo "  kk  ";echo $this->attributes['out_lot_purity'];echo "  kk  "; pd($total_in_weight_gross);
+        //$this->attributes['out_lot_purity'] = $total_in_weight_fine / $total_in_weight_gross * 100;
         return;
       }
     }
