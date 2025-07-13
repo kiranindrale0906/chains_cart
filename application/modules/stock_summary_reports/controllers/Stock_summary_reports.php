@@ -82,7 +82,7 @@ class Stock_summary_reports extends BaseController {
   }
 
   private function received_summary() { 
-    $row_names = array('metal_summary', 'chain_receipt_summary','internal_receipt_summary', 'daily_drawer_receipt_summary', 'hallmark_receipt_summary','loss_receipt', 'finished_goods_receipt',
+    $row_names = array('metal_summary', 'chain_receipt_summary','internal_receipt_summary', 'daily_drawer_receipt_summary','loss_receipt', 'finished_goods_receipt',
                        'refresh_metal_receipt',/* 'rnd_receipt_in_summary', 'rnd_receipt_out_summary',*/ 
                        'pending_ghiss_receipt', 'stone_vatav_receipt',
                        'alloy_receipt_in_summary', 'alloy_receipt_out_summary', 'alloy_receipt_out_weight_summary',
