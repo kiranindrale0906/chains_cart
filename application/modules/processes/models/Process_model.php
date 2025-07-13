@@ -1327,7 +1327,7 @@ $this->attributes['loss'] = four_decimal($this->attributes['loss']);
         //in case of addition of fe_in where hook is also added.... wastage_purity will be same as out_purity
         //do not reduce wastage_weight from in_weight in calculation
         $total_in_weight       = $in_weight + $fe_weight + $hook_and_alloy_weight;
-        $total_in_weight_gross = $in_weight_gross + $hook_and_alloy_weight;
+        $total_in_weight_gross = $in_weight_gross + $hook_and_alloy_weight-$this->attributes['melting_wastage'];
         $total_in_weight_fine  = $in_weight_fine + $hook_fine;
       } else {
 

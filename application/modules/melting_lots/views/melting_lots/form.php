@@ -58,10 +58,6 @@
      
     ?>
   </div>
-  <div class="row">
-    <?php load_field('text', array('field'=> 'input_type','readonly'=>'readonly')); ?>
-  </div>
-
   <?= $this->load->view('melting_lots/sub_melting_lot_details/form.php'); ?>
   <?php load_buttons('submit', array('name'=>'SAVE', 'class'=>'btn_blue')); ?>
 </form>
