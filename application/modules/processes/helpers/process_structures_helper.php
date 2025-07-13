@@ -493,6 +493,15 @@ function tounch_department_structure($process = '', $department_name = '')
     $structure['rope_chain_melting_process'] = $structure['common'];
     return $structure[$process];
 }
+function tounch_hold_department_structure($process = '', $department_name = '')
+{
+    $structure['common'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name),
+        array(array('OUT WEIGHT', 'out_weight', 'text', 'total', '')),
+        array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
+        balance_structure('balance', 'balance_gross', 'balance_fine', ''));
+    $structure['rope_chain_melting_process'] = $structure['common'];
+    return $structure[$process];
+}
 
 
 function stripping_structure($process = '', $department_name = '')
@@ -507,6 +516,15 @@ function stripping_structure($process = '', $department_name = '')
     $structure['rope_chain_melting_process'] = $structure['common'];
     return $structure[$process];
 }
+function stripping_hold_structure($process = '', $department_name = '')
+{
+    $structure['common'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name),
+        array(array('OUT WEIGHT', 'out_weight', 'text', 'total', '')),
+        array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
+        balance_structure('balance', 'balance_gross', 'balance_fine', ''));
+    $structure['rope_chain_melting_process'] = $structure['common'];
+    return $structure[$process];
+}
 function bull_block_structure($process = '', $department_name = '')
 {
     $structure['common'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name), array(array('Description', 'description', 'label_with_value', '', '')),
@@ -515,7 +533,25 @@ function bull_block_structure($process = '', $department_name = '')
         array(array('OUT WEIGHT', 'out_weight', 'text', 'total', '')),
         array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
         wastage_loss_structure('melting_wastage', 'wastage', 'loss', '', false),
-        wastage_loss_structure('hcl_wastage', 'wastage', '', '', false),
+        array(array('HCL Wastage', 'hcl_wastage', 'text_with_add_more', 'total', '')),
+        balance_structure('balance', 'balance_gross', 'balance_fine', ''));
+    $structure['rope_chain_melting_process'] = $structure['common'];
+    return $structure[$process];
+}
+function bull_block_hold_structure($process = '', $department_name = '')
+{
+    $structure['common'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name),
+        array(array('OUT WEIGHT', 'out_weight', 'text', 'total', '')),
+        array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
+        balance_structure('balance', 'balance_gross', 'balance_fine', ''));
+    $structure['rope_chain_melting_process'] = $structure['common'];
+    return $structure[$process];
+}
+function tube_forming_hold_structure($process = '', $department_name = '')
+{
+    $structure['common'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name),
+        array(array('OUT WEIGHT', 'out_weight', 'text', 'total', '')),
+        array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
         balance_structure('balance', 'balance_gross', 'balance_fine', ''));
     $structure['rope_chain_melting_process'] = $structure['common'];
     return $structure[$process];
@@ -527,7 +563,24 @@ function wire_making_structure($process = '', $department_name = '')
         
         array(array('OUT WEIGHT', 'out_weight', 'text', 'total', '')),
         array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
-        wastage_loss_structure('hcl_wastage', 'wastage', '', '', false),
+        array(array('HCL Wastage', 'hcl_wastage', 'text_with_add_more', 'total', '')),
+        balance_structure('balance', 'balance_gross', 'balance_fine', ''));
+    $structure['rope_chain_melting_process'] = $structure['common'];
+    return $structure[$process];
+}
+function wire_making_hold_structure($process = '', $department_name = '')
+{
+    $structure['common'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name),
+        array(array('OUT WEIGHT', 'out_weight', 'text', 'total', '')),
+        array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
+        balance_structure('balance', 'balance_gross', 'balance_fine', ''));
+    $structure['rope_chain_melting_process'] = $structure['common'];
+    return $structure[$process];
+}function flatting_hold_structure($process = '', $department_name = '')
+{
+    $structure['common'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name),
+        array(array('OUT WEIGHT', 'out_weight', 'text', 'total', '')),
+        array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
         balance_structure('balance', 'balance_gross', 'balance_fine', ''));
     $structure['rope_chain_melting_process'] = $structure['common'];
     return $structure[$process];
@@ -541,7 +594,7 @@ function tube_forming_structure($process = '', $department_name = '')
         array(array('FE IN', 'fe_in', 'text', 'total', '')),
         array(array('FE Out', 'fe_out', 'text', 'total', '')),
         wastage_loss_structure('melting_wastage', 'wastage', 'loss', '', false),
-        wastage_loss_structure('hcl_wastage', 'wastage', '', '', false),
+        array(array('HCL Wastage', 'hcl_wastage', 'text_with_add_more', 'total', '')),
         balance_structure('balance', 'balance_gross', 'balance_fine', ''));
     $structure['rope_chain_melting_process'] = $structure['common'];
     return $structure[$process];
@@ -553,7 +606,7 @@ function machine_department_structure($process = '', $department_name = '')
         
         array(array('OUT WEIGHT', 'out_weight', 'text', 'total', '')),
         array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
-        wastage_loss_structure('hcl_wastage', 'wastage', '', '', false),
+        array(array('HCL Wastage', 'hcl_wastage', 'text_with_add_more', 'total', '')),
         balance_structure('balance', 'balance_gross', 'balance_fine', ''));
       return $structure[$process];
 }function drum_structure($process = '', $department_name = '')
@@ -563,7 +616,8 @@ function machine_department_structure($process = '', $department_name = '')
         
         array(array('OUT WEIGHT', 'out_weight', 'text', 'total', '')),
         array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
-        wastage_loss_structure('hcl_wastage', 'wastage', 'loss', '', false),
+        array(array('HCL Wastage', 'hcl_wastage', 'text_with_add_more', 'total', '')),
+        array(array('Loss', 'loss', 'text', 'total', '')),
         balance_structure('balance', 'balance_gross', 'balance_fine', ''));
       return $structure[$process];
 }function drum_i_structure($process = '', $department_name = '')
@@ -606,7 +660,7 @@ function hook_structure($process = '', $department_name = '')
         
         out_common_structure('text'),
         array(array('Wastage Purity', 'wastage_purity', 'label_with_value', '', '')),
-        wastage_loss_structure('hcl_wastage', 'wastage', ''),
+        array(array('HCL Wastage', 'hcl_wastage', 'text_with_add_more', 'total', '')),
         array(array('LOSS', 'loss', 'label_with_value', 'total', '')),
         balance_structure('balance', 'balance_gross', 'balance_fine'));
   return $structure[$process];
