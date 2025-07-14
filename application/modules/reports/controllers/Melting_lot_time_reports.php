@@ -6,7 +6,7 @@ class Melting_lot_time_reports extends BaseController {
   public function __construct(){
     parent::__construct();
     $this->redirect_after_save = 'view';
-    $this->load->model(array('melting_lots/melting_lot_model','processes/process_model', 'settings/karigar_model','arc_orders/generate_lot_model'));
+    $this->load->model(array('melting_lots/melting_lot_model','processes/process_model', 'settings/karigar_model'));
   }
 
   public function index(){
@@ -39,14 +39,14 @@ class Melting_lot_time_reports extends BaseController {
 $filtered_in_process_balance_data = [];
     $this->data['product_names'] = $this->process_model->get('product_name as name,product_name id',array('melting_lot_id!='=>0,'balance!='=>0),array(),array('group_by'=>'product_name'));
     $this->data['genarate_lots'] = $this->process_model->get('account as name,account id',array('account!='=>""),array(),array('group_by'=>'account'));
-    $this->data['order_types'] = $this->generate_lot_model->get('order_type as name,order_type id',array('order_type!='=>""),array(),array('group_by'=>'order_type'));
-    $this->data['customer_names'] = $this->generate_lot_model->get('customer_name as name,customer_name id',array('customer_name!='=>""),array(),array('group_by'=>'customer_name'));
+    //$this->data['order_types'] = $this->generate_lot_model->get('order_type as name,order_type id',array('order_type!='=>""),array(),array('group_by'=>'order_type'));
+    //$this->data['customer_names'] = $this->generate_lot_model->get('customer_name as name,customer_name id',array('customer_name!='=>""),array(),array('group_by'=>'customer_name'));
     foreach ($in_process_balance_data as $in_process_balance_index => $in_process_balance_value) { 
       $melting_lot=$this->melting_lot_model->find('',array('id'=>$in_process_balance_value['melting_lot_id'],'gross_weight >'=>0),array(),array('order_by'=>'created_at asc'));
-      $generate_lot=$this->generate_lot_model->find('',array('lot_no'=>$in_process_balance_value['genarate_lot_no']));
+     // $generate_lot=$this->generate_lot_model->find('',array('lot_no'=>$in_process_balance_value['genarate_lot_no']));
 
-      $matches_order_type = empty($order_type_filter) || $generate_lot['order_type'] == $order_type_filter;
-      $matches_customer_name = empty($customer_name_filter) || $generate_lot['customer_name'] == $customer_name_filter;
+      $matches_order_type = empty($order_type_filter);
+      $matches_customer_name = empty($customer_name_filter) ;
 
     // Check if either filter matches
     if ($matches_order_type && $matches_customer_name) {
@@ -56,9 +56,9 @@ $filtered_in_process_balance_data = [];
       $this->data['record']['in_process_balance_data'][$in_process_balance_value['product_name']][date('d-m-Y',strtotime($melting_lot['created_at']))][$melting_lot['id']][$in_process_balance_index]['department_name']=$in_process_balance_value['department_name'];
       $this->data['record']['in_process_balance_data'][$in_process_balance_value['product_name']][date('d-m-Y',strtotime($melting_lot['created_at']))][$melting_lot['id']][$in_process_balance_index]['process_name']=$in_process_balance_value['process_name'];
       $this->data['record']['in_process_balance_data'][$in_process_balance_value['product_name']][date('d-m-Y',strtotime($melting_lot['created_at']))][$melting_lot['id']][$in_process_balance_index]['balance']=$in_process_balance_value['balance'];
-      $this->data['record']['in_process_balance_data'][$in_process_balance_value['product_name']][date('d-m-Y',strtotime($melting_lot['created_at']))][$melting_lot['id']][$in_process_balance_index]['customer_name']=$generate_lot['customer_name'];
-      $this->data['record']['in_process_balance_data'][$in_process_balance_value['product_name']][date('d-m-Y',strtotime($melting_lot['created_at']))][$melting_lot['id']][$in_process_balance_index]['order_date']=$generate_lot['order_date'];
-      $this->data['record']['in_process_balance_data'][$in_process_balance_value['product_name']][date('d-m-Y',strtotime($melting_lot['created_at']))][$melting_lot['id']][$in_process_balance_index]['order_type']=$generate_lot['order_type'];
+      //$this->data['record']['in_process_balance_data'][$in_process_balance_value['product_name']][date('d-m-Y',strtotime($melting_lot['created_at']))][$melting_lot['id']][$in_process_balance_index]['customer_name']=$generate_lot['customer_name'];
+     // $this->data['record']['in_process_balance_data'][$in_process_balance_value['product_name']][date('d-m-Y',strtotime($melting_lot['created_at']))][$melting_lot['id']][$in_process_balance_index]['order_date']=$generate_lot['order_date'];
+    //  $this->data['record']['in_process_balance_data'][$in_process_balance_value['product_name']][date('d-m-Y',strtotime($melting_lot['created_at']))][$melting_lot['id']][$in_process_balance_index]['order_type']=$generate_lot['order_type'];
       $today_date = date('Y-m-d');
       $date1 = date('Y-m-d',strtotime($in_process_balance_value['melting_created_date']));
       $date2 = date('Y-m-d',strtotime($today_date));
