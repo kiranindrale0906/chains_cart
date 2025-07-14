@@ -647,7 +647,7 @@ function machine_department_structure($process = '', $department_name = '')
         array('FE Out', 'fe_out', 'label_with_value', 'total', ''),
         array('Expected Out', 'expected_out_weight', 'label_with_value', 'total', ''),
         array('Loss', 'loss', 'label_with_value', 'total', '')),
-    balance_structure('balance', '', 'balance_fine'));
+    balance_structure('balance', 'balance_gross', 'balance_fine'));
       return $structure[$process];
 }
 function hook_structure($process = '', $department_name = '')

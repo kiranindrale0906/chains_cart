@@ -43,11 +43,11 @@ class User_role_model extends Core_user_role_model {
       'pending_status' => array('processes/process_pendings'),
       'hallmark_receipt' => array('receipt_departments/hallmark_receipts','processes/process_hallmark_in'),
      'process_tounch_loss_fine' => array('processes/process_tounch_loss_fine'),
-     'masters' => array('masters/accounts'),
+     'masters' => array('masters/accounts','masters/machine_masters',),
      'process_details' => array('processes/process_details','processes/process_fields'),
      'loss_receipts'      => array('receipt_departments/loss_receipts'),
 
-     'masters' => array('masters/category_1','masters/category_2',
+    /* 'masters' => array('masters/category_1','masters/category_2',
                         'masters/category_3','masters/category_4',
                         'masters/category_5','masters/category_6',
                         'masters/machine_masters',
@@ -57,7 +57,7 @@ class User_role_model extends Core_user_role_model {
                         'masters/process_detail_fields',
                         'masters/alloy_element_details',
                         'masters/rolling_delay_time_masters',
-                        'masters/wastage_masters'),
+                        'masters/wastage_masters'),*/
      
      'dd_issue_departments' => array('daily_drawers/daily_drawer_issue_departments',
                      'daily_drawers/daily_drawer_karigar_issue_departments'),
