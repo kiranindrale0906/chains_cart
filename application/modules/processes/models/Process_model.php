@@ -886,10 +886,6 @@ class Process_model extends BaseModel {
   }
 
   protected function set_process_fields() {
-    if($this->attributes['department_name']=='Stripping') {
-      $this->set_copper_out_in_cutting_department();
-    }
-
     if (   $this->attributes['department_name']=='HCL'
         || $this->attributes['department_name']=='HCL Process') {
       $this->attributes['expected_out_weight'] = $this->attributes['balance_gross'] * $this->attributes['in_purity'] / 100;
@@ -910,22 +906,6 @@ class Process_model extends BaseModel {
           $this->attributes['hcl_loss'] = 0;
       }
     }
-
-    // if ($this->attributes['product_name']=='Loss Out' && $this->attributes['process_name']=='Melting' && $this->attributes['department_name']=='Melting') {
-    //   $this->attributes['expected_out_weight'] = $this->attributes['in_weight'] * $this->attributes['in_purity'] / 100;
-    //   $this->attributes['wastage_fe'] = round($this->attributes['in_weight'] - $this->attributes['expected_out_weight'], 10);
-    //   if ($this->attributes['melting_wastage'] > 0 && $this->attributes['out_lot_purity'] > 0) {
-    //     $this->attributes['refine_loss'] = $this->attributes['expected_out_weight'] - $this->attributes['melting_wastage'];
-    //   }
-    // }  
-
-    // if($this->attributes['department_name']=='Strip HCL') {
-    //   $this->attributes['expected_out_weight'] = $this->attributes['in_weight'] * $this->attributes['in_purity'] / 100;
-    //   if ($this->attributes['tounch_in'] > 0) {
-    //     $this->attributes['fe_out'] = $this->attributes['in_weight'] - $this->attributes['tounch_in'];
-    //     $this->attributes['hcl_loss'] = $this->attributes['expected_out_weight'] - $this->attributes['tounch_in'];
-    //   }
-    // }
   }
 
   // protected function calculate_stone_vatav() {
