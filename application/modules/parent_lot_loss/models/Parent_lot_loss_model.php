@@ -79,7 +79,7 @@ class Parent_lot_loss_model extends BaseModel{
     $this->get_records_by_parent_lot_id($hcl_melting_out_weight_processes, 'hcl_melting_out_weight');
 
     //(F) AU+FE IN MELTING WASTAGE
-    $au_fe_melting_wastage = $this->process_model->get('sum(in_melting_wastage) as melting_wastage,parent_lot_id', 
+    $au_fe_melting_wastage = $this->process_model->get('sum(melting_wastage) as melting_wastage,parent_lot_id', 
                                                      array_merge($where, array('department_name' => 'Tube Forming')), array(), 
                                                      array('group_by' => 'parent_lot_id'));
     $this->get_records_by_parent_lot_id($au_fe_melting_wastage, 'au_fe_melting_wastage');
