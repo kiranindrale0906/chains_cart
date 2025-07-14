@@ -559,6 +559,7 @@ function tube_forming_hold_structure($process = '', $department_name = '')
 function wire_making_structure($process = '', $department_name = '')
 {
     $structure['common'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name), array(array('Description', 'description', 'label_with_value', '', '')),
+        array(array('Machine No', 'machine_no', 'dynamic_dropdown', '', array())),
         array(array('Karigar', 'karigar', 'karigar_dropdown', '')),
         
         array(array('OUT WEIGHT', 'out_weight', 'text', 'total', '')),
