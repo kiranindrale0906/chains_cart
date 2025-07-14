@@ -38,7 +38,7 @@ class Parent_lot_loss_model extends BaseModel{
     //(A) IN WEIGHT FROM AU+FE DEPARTMENT
     $in_weight_processes = $this->process_model->get('sum(out_weight * in_lot_purity) / sum(out_weight) as in_lot_purity,
                                                       sum(in_weight) as weight, parent_lot_id', 
-                                                     array_merge($where, array('department_name' => 'AU+FE')), array(), 
+                                                     array_merge($where, array('department_name' => 'Tube Forming')), array(), 
                                                      array('group_by' => 'parent_lot_id'));
     $this->get_records_by_parent_lot_id($in_weight_processes, 'in_weight');
 
