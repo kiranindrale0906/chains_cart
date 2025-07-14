@@ -16,8 +16,8 @@
       <th class="text-right">Ghiss</th>
       <th class="text-right">Wastage</th> -->
       <th class="text-right">Loss</th>
-      <th class="text-right">Gross Loss</th>
-      <th class="text-right">Fine Loss</th>
+     <!--  <th class="text-right">Gross Loss</th>
+      <th class="text-right">Fine Loss</th> -->
       <th class="text-right">Workers Count</th>
       <th class="text-right">Average Production</th>
       <th class="text-right">Average Per Kg Loss</th>
@@ -63,8 +63,8 @@
           <td class="text-right"><?//= four_decimal($process_outweight[0]['ghiss']) ?></td>
           <td class="text-right"><?//= four_decimal($process_outweight[0]['wastage']) ?></td>
           --> <td class="text-right"><?= (isset($process_loss[$date])) ? four_decimal($process_loss[$date][0]['loss']) : 0 ?></td>
-          <td class="text-right"><?= (isset($process_loss[$date])) ? four_decimal($process_loss[$date][0]['loss_gross']) : 0?></td>
-          <td class="text-right"><?= (isset($process_loss[$date])) ? four_decimal($process_loss[$date][0]['loss_fine']) : 0?></td>
+          <!-- <td class="text-right"><?//= (isset($process_loss[$date])) ? four_decimal($process_loss[$date][0]['loss_gross']) : 0?></td>
+          <td class="text-right"><?//= (isset($process_loss[$date])) ? four_decimal($process_loss[$date][0]['loss_fine']) : 0?></td> -->
           <td class="text-right"><?= $department_workers_count; ?></td>
           <td class="text-right"><?= ($department_workers_count!=0) ? four_decimal($process_outweight[0]['out_weight']/$department_workers_count) : 'NA'?></td>
           <td class="text-right">
@@ -81,13 +81,13 @@
       <tr class="bg_gray">
         <td class="bold">Total</td>
         <td class="text-right bold"><?=four_decimal($total_in_weight);?></td>
-        <td class="text-right bold"><?=four_decimal($total_outweight);?></td>
-        <td class="text-right bold"><?=four_decimal($total_fine_wt);?></td>
-        <td class="text-right bold"><?=four_decimal($total_ghiss);?></td>
-        <td class="text-right bold"><?=four_decimal($total_wastage);?></td>
-        <td class="text-right bold"><?=four_decimal($total_loss);?></td>
-        <td class="text-right bold"><?=four_decimal($total_loss_gross);?></td>
-        <td class="text-right bold"><?=four_decimal($total_loss_fine);?></td>
+        <td class="text-right bold"><?=four_decimal($total_outweight);?></td><!-- 
+        <td class="text-right bold"><?//=four_decimal($total_fine_wt);?></td>
+        <td class="text-right bold"><?//=four_decimal($total_ghiss);?></td>
+        <td class="text-right bold"><?//=four_decimal($total_wastage);?></td> -->
+        <td class="text-right bold"><?=four_decimal($total_loss);?></td><!-- 
+        <td class="text-right bold"><?//=four_decimal($total_loss_gross);?></td>
+        <td class="text-right bold"><?//=four_decimal($total_loss_fine);?></td> -->
         <td class="text-right bold"><?=$total_department_workers;?></td>
         <td class="text-right bold"><?=($total_department_workers!=0) ? four_decimal($total_outweight/$total_department_workers) : 'NA'?></td>
         <td class="text-right bold"><?=($total_outweight!=0) ? four_decimal(($total_loss_fine/$total_outweight)*1000) : 'NA'?></td>
