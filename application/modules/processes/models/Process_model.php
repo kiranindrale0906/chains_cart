@@ -888,7 +888,7 @@ class Process_model extends BaseModel {
   protected function set_process_fields() {
     if (   $this->attributes['department_name']=='HCL'
         || $this->attributes['department_name']=='HCL Process') {
-      $this->attributes['expected_out_weight'] = $this->attributes['balance_gross'] * $this->attributes['in_purity'] / 100;
+      $this->attributes['expected_out_weight'] = $this->attributes['in_weight'] * $this->attributes['in_purity'] / 100;
       if (   $this->attributes['product_name'] == 'Machine Chain' 
           && $this->attributes['process_name'] == 'Final Process'
           && $this->attributes['department_name'] == 'HCL') {
