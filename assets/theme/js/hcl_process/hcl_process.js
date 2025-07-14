@@ -132,21 +132,21 @@ function onchange_process_name_set_parent_lots() {
   });
 }
 
-function hcl_parent_lot_options(response) {
-  $("select[name*='hcl_processes[parent_lot_id]'] option").remove();
-  var option_html="<option value=''>Select</option>";
-  for (i=0; i < response.result.length; i++) {
-    name = response.result[i].name;
-    option_html += "<option data-subtext='' value="+response.result[i].id+">"+name+"</option>";
-  }
+// function hcl_parent_lot_options(response) {
+//   $("select[name*='hcl_processes[parent_lot_id]'] option").remove();
+//   var option_html="<option value=''>Select</option>";
+//   for (i=0; i < response.result.length; i++) {
+//     name = response.result[i].name;
+//     option_html += "<option data-subtext='' value="+response.result[i].id+">"+name+"</option>";
+//   }
 
-  if(response.result.length==0){
-    var option_html="<option value=''>No Record Found.</option>";
-  }
-  $("select[name*='hcl_processes[parent_lot_id]']").append(option_html);
-  $("select[name*='hcl_processes[parent_lot_id]").selectpicker('refresh');
+//   if(response.result.length==0){
+//     var option_html="<option value=''>No Record Found.</option>";
+//   }
+//   $("select[name*='hcl_processes[parent_lot_id]']").append(option_html);
+//   $("select[name*='hcl_processes[parent_lot_id]").selectpicker('refresh');
 
-}
+// }
 
 function onchange_process_name_set_lots() {
   var process_name = $('select[name*="hcl_processes[process_name]"] option:selected').val();

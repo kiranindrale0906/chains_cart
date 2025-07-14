@@ -20,7 +20,7 @@ class Hcl_melting_process_model extends Process_model{
       $this->attributes['parent_lot_name'] = $this->attributes['lot_no'];
     }
 
-    $this->set_strip_cutting_process_id();
+    //$this->set_strip_cutting_process_id();
     parent::before_validate();
   }
 
@@ -36,7 +36,7 @@ class Hcl_melting_process_model extends Process_model{
     if ($this->attributes['department_name'] == 'HCL Process') {
       //$start_record = $this->process_model->find('id', array('id' => $this->attributes['parent_id']));
       $this->load->model('processes/process_out_wastage_detail_model');
-      $chain_process_id = $this->process_out_wastage_detail_model->find('process_id', array('parent_id' => $this->attributes['id']))['process_id'];
+      $chain_process_id = $this->process_out_wastage_detail_model->find('process_id', array('parent_id' => @$this->attributes['id']))['process_id'];
       $chain_process = $this->process_model->find('department_name, in_purity', array('id' => $chain_process_id));
       if ($chain_process['department_name'] == 'Strip Cutting') {
         $this->attributes['strip_cutting_process_id'] = $chain_process_id;
@@ -121,7 +121,7 @@ class Hcl_melting_process_model extends Process_model{
   //$this->load->model('hcl/hcl_melting_process_model');
   //$this->hcl_melting_process_model->update_all_chain_out_purity_after_strip_cutting();
   public function update_all_chain_out_purity_after_strip_cutting() {
-    $hcl_processes = $this->get('id', array('department_name' => 'HCL Process'));
+    $hcl_processes = $this->get('id', array('department_name' => 'HCL'));
     foreach ($hcl_processes as $hcl_process) {
       $hcl_process_obj = new hcl_melting_process_model($hcl_process);
       $hcl_process_obj->set_strip_cutting_process_id();

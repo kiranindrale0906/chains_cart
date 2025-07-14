@@ -8,7 +8,7 @@
 
      <?php 
       load_field('dropdown', array('field' => 'process_name','option'=>@get_process_hcl(),'class'=>'hcl_process_name'));
-      load_field('dropdown', array('field' => 'parent_lot_id','option'=>$parent_lot_nos,'col' => 'col-md-6 hcl_parent_lots'));
+      load_field('dropdown', array('field' => 'parent_lot_id','option'=>$parent_lot_nos,'col' => 'col-md-6'));
       load_field('dropdown', array('field' => 'melting_lot_id','option'=>$lot_nos,'col' => 'col-md-6 hcl_lots','value'=>@$record['melting_lot_id']));?>    
 
 

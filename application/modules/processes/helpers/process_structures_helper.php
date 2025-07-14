@@ -325,6 +325,12 @@ function start_structure($process = '', $department_name = '', $sub_department_n
         design_detail_common_structure('design_code'),
         commond_created_structure()
     );
+    $structure['hcl_melting_process'] = array_merge(
+        array(array('SR NO', 'id', 'label_with_value', '')),
+        array(array('PARENT LOT NO', 'parent_lot_name', 'label_with_text', '')),
+        in_common_structure_with_in_details('in_lot_purity', 'in_weight', 'in_purity'),
+        commond_created_structure()
+    );
     $structure['common_start_without_lotno_indo_tally'] = array_merge(
         array(array('Barcode', 'bar_code', 'label_with_value', ''), array('SR NO', 'id', 'label_with_value', '')),
         array(array('PARENT LOT NO', 'parent_lot_name', 'label_with_text', ''), array('Input Type', 'input_type', 'label_with_text', ''),
@@ -447,6 +453,22 @@ function melting_structure($process = '', $department_name = '', $sub_department
         tounch_structure(),
         ghiss_structure('text_with_add_more'),
         balance_structure('balance', '', 'balance_fine'));
+    $structure['hcl_ghiss_melting_process'] = array_merge(array(array('PARENT LOT NO', 'parent_lot_name', 'label_with_text', '')),
+        in_common_structure('in_lot_purity', 'in_weight', 'in_purity', $department_name),
+        array(array('OUT', 'melting_wastage', 'text', 'total', '')),
+        tounch_structure('text_with_add_more'),
+        array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
+        wastage_loss_structure('daily_drawer_wastage', 'wastage', 'loss', '', false),
+        balance_structure('balance', 'balance_gross', 'balance_fine', 'tounch_loss_fine'));
+
+    $structure['hcl_melting_process'] = array_merge(array(array('PARENT LOT NO', 'parent_lot_name', 'label_with_text', '')),
+        in_common_structure('in_lot_purity', 'in_weight', 'in_purity', $department_name),
+        array(array('OUT', 'melting_wastage', 'text', 'total', '')),
+        tounch_structure('text_with_add_more'),
+        array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
+        wastage_loss_structure('daily_drawer_wastage', 'wastage', 'loss', '', false),
+        balance_structure('balance', '', 'balance_fine', 'tounch_loss_fine'));
+    
 
  $structure['rope_chain_melting_process'] = array_merge(
         in_common_structure('in_lot_purity', 'in_weight', '', $department_name,$sub_department_name),
@@ -599,6 +621,49 @@ function tube_forming_structure($process = '', $department_name = '')
     $structure['rope_chain_melting_process'] = $structure['common'];
     return $structure[$process];
 }
+function hcl_process_structure($process = '', $department_name = '')
+{
+    $structure['hcl_melting_process'] = array_merge(
+        array(array('PARENT LOT NO', 'parent_lot_name', 'label_with_text', '')),
+        in_common_structure('in_lot_purity', 'in_weight', 'in_purity'),
+        out_common_structure('text', 'out_purity', 'out_lot_purity', ''),
+        array(array('Expected OUT', 'expected_out_weight', 'label_with_value', 'total', '')),
+        array(array('FE OUT', 'fe_out', 'label_with_value', 'total', '')),
+        array(array('BALANCE', 'balance', 'label_with_value', 'total', ''),
+            array('BALANCE GROSS', 'balance_gross', 'label_with_value', 'total', ''),
+            array('BALANCE FINE', 'balance_fine', 'label_with_value', 'total', ''),
+            array('HCL LOSS', 'hcl_loss', 'label_with_value', 'total', ''),
+            array('Strip Cutting', 'strip_cutting_process_id', 'label_with_value', '', '')),
+        commond_created_structure(),
+        array(array('ACTION', 'action', '', '', '')));
+    $structure['rod_melting_process'] = array_merge(
+        array(array('LOT NO', 'lot_no', 'label_with_text', ''), array('In', 'in_rod', 'label_with_value', 'total', ''),
+            array('Plain Rod Wt', 'in_plain_rod', 'label_with_value', 'total', '')),
+        out_common_structure('text', 'out_purity', 'out_lot_purity', ''),
+        array(array('Expected OUT', 'expected_out_weight', 'label_with_value', 'total', '')),
+        array(array('FE OUT', 'out_rod', 'label_with_value', 'total', '')),
+        array(array('BALANCE', 'balance', 'label_with_value', 'total', ''),
+            array('BALANCE GROSS', 'balance_gross', 'label_with_value', 'total', ''),
+            array('BALANCE FINE', 'balance_fine', 'label_with_value', 'total', ''),
+            array('LOSS', 'loss', 'label_with_value', 'total', '')),
+        commond_created_structure(),
+        array(array('ACTION', 'action', '', '', '')));
+    $structure['hcl_ghiss_melting_process'] = array_merge(
+        array(array('PARENT LOT NO', 'parent_lot_name', 'label_with_text', '')),
+        in_common_structure('in_lot_purity', 'in_weight', '', $department_name),
+        out_common_structure('text', '', '', ''),
+        array(array('Expected OUT', 'expected_out_weight', 'label_with_value', 'total', '')),
+        array(array('FE OUT', 'fe_out', 'label_with_value', 'total', '')),
+        array(array('BALANCE', 'balance', 'label_with_value', 'total', ''),
+            array('BALANCE GROSS', 'balance_gross', 'label_with_value', 'total', ''),
+            array('BALANCE FINE', 'balance_fine', 'label_with_value', 'total', ''),
+            array('HCL LOSS', 'hcl_loss', 'label_with_value', 'total', '')),
+        commond_created_structure(),
+        array(array('ACTION', 'action', '', '', '')));
+
+    return $structure[$process];
+}
+
 function machine_department_structure($process = '', $department_name = '')
 {
     $structure['rope_chain_machine_process'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name),
