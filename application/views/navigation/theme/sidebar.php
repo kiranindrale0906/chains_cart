@@ -447,6 +447,7 @@ if(HOST=='ARC'){
 */
 'Settings' => array(
                   'users/accounts' => 'Accounts',
+                  'masters/machine_masters'=>'Machine Master',
                   'settings/karigars' => 'Karigar Master',
                   'settings/same_karigars' => 'Karigars',
                   'settings/karigar_rates' => 'Karigar rates',

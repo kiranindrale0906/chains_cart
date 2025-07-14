@@ -195,6 +195,7 @@ class User_role_model extends Core_user_role_model {
                           'melting_lots/melting_lot_alloy_details',
                           'melting_lots/parent_lots',
                           'settings/alloy_details',
+                          'masters/machine_masters',
                           'settings/karigars',
                           'settings/rods',
                           'settings/alloy_types',
