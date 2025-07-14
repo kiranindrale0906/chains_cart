@@ -1881,7 +1881,7 @@ $this->attributes['loss'] = four_decimal($this->attributes['loss']);
                         'chain_name', 'design_code', 'karigar','worker','job_card_no','lopster_no', 'next_department_name','next_department_karigar', 'srno');
     $this->initialize_fields($str_fields, '');
 
-    $number_fields = array('parent_id', 'process_sequence',
+    $number_fields = array('parent_id','out_rejected', 'process_sequence',
                           'copper_process_id', 'melting_lot_id', 'order_detail_id', 'parent_lot_id',
                           'in_plain_rod', 'in_rod', 'out_rod', 'in_machine_gold', 'out_machine_gold', 'rod_id','rhodium_in',
                           'in_lot_purity', 'in_weight',

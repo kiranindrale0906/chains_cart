@@ -66,6 +66,7 @@ class Hcl_processes extends BaseController {
                                                                       'balance_hcl_wastage >' => 0,
                                                                       'where_in' => array('parent_lot_name' => $str_parent_lot_names)),
                                                                 array(), array('group_by' => 'parent_lot_name'));
+      $this->data['parent_lot_nos']=array_merge(array(array('id'=>"",'name'=>"Select")),$this->data['parent_lot_nos']);
 
       $where['product_name']=$_GET['process_name'];
     }

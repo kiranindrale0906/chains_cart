@@ -656,22 +656,8 @@ function get_final_process($key='') {
 
 function get_process_hcl($key='') {
   return array(
-    array('name'=>'Rope Chain','id' =>'Rope Chain'),
-    array('name'=>'Solid Rope Chain','id' =>'Solid Rope Chain'),
-    array('name'=>'Solid Nawabi Chain','id' =>'Solid Nawabi Chain'),
-    array('name'=>'Machine Chain','id' =>'Machine Chain'),
-    array('name'=>'Solid Machine Chain','id' =>'Solid Machine Chain'),
-    array('name'=>'Imp Italy Chain','id' =>'Imp Italy Chain'),
-    array('name'=>'Hollow Choco Chain','id' =>'Hollow Choco Chain'),
-    array('name'=>'Lotus Chain','id' =>'Lotus Chain'),
-    array('name'=>'Lopster Making Chain','id' =>'Lopster Making Chain'),
-    array('name'=>'Hollow Bangle Chain','id' =>'Hollow Bangle Chain'),
-    array('name'=>'Roco Choco Chain','id' =>'Roco Choco Chain'),
-    array('name'=>'Nawabi Chain','id' =>'Nawabi Chain'),
-    array('name'=>'Casting 92 Chain','id' =>'Casting 92 Chain'),
-    array('name'=>'Casting 75 Chain','id' =>'Casting 75 Chain'),
-    array('name'=>'Indo tally Chain','id' =>'Indo tally Chain'),
-    array('name'=>'Office Outside','id' =>'Office Outside'));
+    array('name'=>'Rope Chain','id' =>'Rope Chain')
+    );
 }
 
 function get_issue_department_comapny_name() {

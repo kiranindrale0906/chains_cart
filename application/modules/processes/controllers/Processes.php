@@ -289,10 +289,10 @@ $this->data['room_product_name']     = $this->data['room_department_names'][0]['
 
                   'previous_process' => 
                     array('view_html' => $this->load->view('processes/processes/form', 
-                                             array('process' => $previous_process,
+                                             array('process' => @$previous_process,
                                                    'department_columns' => @$previous_process_department_columns,
-                                                   'last_department_name' => $last_department_name), TRUE),
-                          'row_id' => get_row_id($previous_process['row_id'], $previous_process['department_name'])),
+                                                   'last_department_name' => @$last_department_name), TRUE),
+                          'row_id' => get_row_id(@$previous_process['row_id'], @$previous_process['department_name'])),
                   );
     return $data;     
   }

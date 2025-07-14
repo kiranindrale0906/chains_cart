@@ -12,9 +12,9 @@
       <th>Date</th>
       <th class="text-right">In-Weight</th>
       <th class="text-right">Out-Weight</th>
-      <th class="text-right">Fine-Weight</th>
+      <!-- <th class="text-right">Fine-Weight</th>
       <th class="text-right">Ghiss</th>
-      <th class="text-right">Wastage</th>
+      <th class="text-right">Wastage</th> -->
       <th class="text-right">Loss</th>
       <th class="text-right">Gross Loss</th>
       <th class="text-right">Fine Loss</th>
@@ -59,10 +59,10 @@
         <?php }else{?>
           <td class="text-right"><?= four_decimal($process_outweight[0]['out_weight'])?></td>
         <?php }?>
-          <td class="text-right"><?= four_decimal($process_outweight[0]['balance_fine']) ?></td>
-          <td class="text-right"><?= four_decimal($process_outweight[0]['ghiss']) ?></td>
-          <td class="text-right"><?= four_decimal($process_outweight[0]['wastage']) ?></td>
-          <td class="text-right"><?= (isset($process_loss[$date])) ? four_decimal($process_loss[$date][0]['loss']) : 0 ?></td>
+         <!--  <td class="text-right"><?//= four_decimal($process_outweight[0]['balance_fine']) ?></td>
+          <td class="text-right"><?//= four_decimal($process_outweight[0]['ghiss']) ?></td>
+          <td class="text-right"><?//= four_decimal($process_outweight[0]['wastage']) ?></td>
+          --> <td class="text-right"><?= (isset($process_loss[$date])) ? four_decimal($process_loss[$date][0]['loss']) : 0 ?></td>
           <td class="text-right"><?= (isset($process_loss[$date])) ? four_decimal($process_loss[$date][0]['loss_gross']) : 0?></td>
           <td class="text-right"><?= (isset($process_loss[$date])) ? four_decimal($process_loss[$date][0]['loss_fine']) : 0?></td>
           <td class="text-right"><?= $department_workers_count; ?></td>

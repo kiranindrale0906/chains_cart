@@ -237,7 +237,7 @@
 .table-header-cell {
       padding: 8px 12px;
       font-size: 13px;
-      width: 200px;
+      width: 100px;
       text-align: center;
       border-right: 1px solid #e0e0e0;
       display: flex;
