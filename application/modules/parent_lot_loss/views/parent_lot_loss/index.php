@@ -40,7 +40,7 @@
         <th class="text-right">(D1) <br />Out Weight</th>
 
         <th class="text-right">(E) <br />HCL Melting Out weight</th>
-        <th class="text-right">(F) <br />AU FE Melting Wastage</th>
+        <th class="text-right">(F) <br />Tube Forming Melting Wastage</th>
         <th class="text-right">(G) <br />Bull Block Weight</th>
         <th class="text-right">(H = E+F+G) <br />Total Wastage</th>
 
