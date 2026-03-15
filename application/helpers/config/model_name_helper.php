@@ -33,6 +33,20 @@
 						break;
 				}
 				break;
+			case 'Choco Chain':
+				switch ($process_name) {
+					case 'Melting Process':
+						$model_name = array('model_name'=>'choco_chain_melting_process_model','module_name'=>'choco_chains');
+						break;
+					case 'Chain Making Process':
+						$model_name = array('model_name'=>'choco_chain_chain_making_process_model','module_name'=>'choco_chains');
+						break;
+					case 'Final Process':
+						$model_name = array('model_name'=>'choco_chain_final_process_model','module_name'=>'choco_chains');
+						break;
+				}
+				break;
+			
 			case 'Export Internal':
 				switch ($process_name) {
 					case 'Export Internal Receipt':

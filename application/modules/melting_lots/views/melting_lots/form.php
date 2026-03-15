@@ -10,8 +10,7 @@
         load_field('hidden', array('field' => 'chain_order_id', 'value' => $record['chain_order_id']));
       }
       load_field('dropdown', array('field' => 'process_name','option'=>@$process,'class'=>'process_name'));
-      if (isset($process_name) && in_array($process_name, array('Rope Chain', 
-                                                                ))) {
+      if (isset($process_name) && in_array($process_name, array('Rope Chain', 'Choco Chain'))) {
         load_field('dropdown', array('field' => 'parent_lot_id',
                                      'option'=>@$parent_lots, 'col' => 'col-md-6 melting_parent_lots'));
       }
@@ -22,19 +21,19 @@
   <div class="row">
     <?php
       if(  isset($process_name) 
-         && ( $process_name == 'Rope Chain' 
+         && ( $process_name == 'Rope Chain' || $process_name == 'Choco Chain' 
              )) {
         load_field('dropdown', array('field' => 'category_one', 'id' => 'category_one',
                                      'col'=>'col-md-6 category_one'));
         
       } 
       if(isset($process_name) &&
-              ($process_name == 'Rope Chain') ) {
+              ($process_name == 'Rope Chain' || $process_name == 'Choco Chain') ) {
           load_field('dropdown', array('field' => 'category_two','id' => 'category_two',
                                'col'=>'col-md-6 category_two'));
       }
 
-      if(isset($process_name) && ($process_name == 'Rope Chain') ) {
+      if(isset($process_name) && ($process_name == 'Rope Chain' || $process_name == 'Choco Chain') ) {
           load_field('dropdown', array('field' => 'category_three','id' => 'category_three',
                              'col'=>'col-md-6 category_three'));
           load_field('dropdown', array('field' => 'category_four','id' => 'category_four',

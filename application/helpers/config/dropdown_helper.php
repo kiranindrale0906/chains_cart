@@ -288,6 +288,7 @@ function get_process($key='') {
  
   return array(
             array('name'=>'Rope Chain','id' =>'Rope Chain'),
+             array('name'=>'Choco Chain','id' =>'Choco Chain'),
             array('name'=>'Office Outside Hook','id' =>'Office Outside Hook'),
             array('name'=>'Office Outside KDM','id' =>'Office Outside KDM'),
             array('name'=>'Office Outside Lobster','id' =>'Office Outside Lobster'),

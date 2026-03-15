@@ -21,6 +21,7 @@ $menu_icons = array('Backup Database' => '',
                     'QR Code' => '',
                     'Melting Wastage Refine' => '',
                     'Rope Chain' => '',
+                    'Choco Chain' => '',
                     'HCL' => '',
                     'Solder' => '',
                     'Metal Issue' => '',
@@ -229,8 +230,13 @@ if(HOST=='ARC'){
                                             'rope_chains/machine_processes' => 'Machine Process',
                                             'rope_chains/final_processes' => 'Final Process',
                                             ),
-                        
 
+                      'Choco Chain' => array('choco_chains/melting_processes' => 'Melting Process',
+                                            'choco_chains/chain_making_processes' => 'Chain Making Process',
+                                            'choco_chains/final_processes' => 'Final Process',
+                                            ),
+                        
+                
                       'Solid Rope Chain' => array('solid_rope_chains/meltings' => 'Melting',
                                             'solid_rope_chains/machine_processes' => 'Machine Process',
                                             'solid_rope_chains/final_processes' => 'Final Process',

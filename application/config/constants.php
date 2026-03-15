@@ -124,7 +124,7 @@ define('HOSTVERSION', ' (Apr 2024)');
 define('API_BASE_PATH', 'https://apr2024-argold-accounts.ar-gold.in/');
 define('AUTH_TOKEN', '1234');
 
-
+define('BOM_DB_NAME',"");
 define('ARF_DB_NAME', 'arf_apr2024_production');
 define('ARC_DB_NAME', 'arc_apr2024_production');
 define('ARGOLD_DB_NAME', 'argold_apr2024_production');

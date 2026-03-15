@@ -637,10 +637,10 @@ class Process_field_model extends BaseModel{
     if (!empty($this->attributes['pending_ghiss']) && $this->attributes['pending_ghiss'] > 0 && $process['department_name']=="Hand Cutting"){
       $this->update_karigar_after_pending_ghiss_update($this->attributes);
     }
-    if ($this->attributes['out_weight'] > 0 && $process['department_name']=="Factory Hold" && $process['product_name']=="Refresh"){
+    if (!empty($this->attributes['out_weight']) && $this->attributes['out_weight'] > 0 && $process['department_name']=="Factory Hold" && $process['product_name']=="Refresh"){
       $this->update_melting_lot_category_one_after_pending_ghiss_update($this->attributes);
     }
-    if ($this->attributes['gpc_out'] > 0 && $process['department_name']=="GPC" && $process['product_name']=="KA Chain Refresh"){
+    if (!empty($this->attributes['gpc_out']) && $this->attributes['gpc_out'] > 0 && $process['department_name']=="GPC" && $process['product_name']=="KA Chain Refresh"){
       $this->update_melting_lot_category_one_after_pending_ghiss_update($this->attributes);
     } 
 

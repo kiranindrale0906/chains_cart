@@ -111,7 +111,7 @@ class Melting_lot_model extends BaseModel{
     );
 
 
-    if ($this->attributes['process_name'] == 'Rope Chain'
+    if (($this->attributes['process_name'] == 'Rope Chain'|| $this->attributes['process_name'] == ' Choco Chain')
         && $this->attributes['lot_purity'] > 0){
         
         $rules[] =array('field' => 'melting_lots[lot_purity]', 'label' => 'Lot Purity',
@@ -126,7 +126,7 @@ class Melting_lot_model extends BaseModel{
                                     'less_than_equal_to'=>"Please enter purity less than 99.99"));
       }
     
-    if (in_array($this->attributes['process_name'],array('Rope Chain'))) 
+    if (in_array($this->attributes['process_name'],array('Rope Chain','Choco Chain'))) 
       $rules[]=array('field' => 'melting_lots[parent_lot_id]', 'label' => 'Parent Lot',
                      'rules' => 'trim|required|max_length[64]',
                      'errors'=>array('required'=>'Parent Lot is required'));
@@ -230,6 +230,9 @@ class Melting_lot_model extends BaseModel{
     if($this->attributes['process_name']=='Rope Chain'){
       $this->load->model('rope_chains/rope_chain_melting_process_model');
       $process_obj=new rope_chain_melting_process_model($start_process);
+    }elseif($this->attributes['process_name']=='Choco Chain'){
+      $this->load->model('choco_chains/choco_chain_melting_process_model');
+      $process_obj=new choco_chain_melting_process_model($start_process);
     }elseif($this->attributes['process_name']=='Office Outside Hook'){
       $this->load->model('office_outside/hook_model');
       $process_obj=new hook_model($start_process);
@@ -271,6 +274,8 @@ class Melting_lot_model extends BaseModel{
     $this->attributes['srno'] = $srno;
    if ($this->attributes['process_name'] == 'Rope Chain') {
       $this->attributes['lot_no'] = strtoupper('RP-'.sprintf("%02d", $this->attributes['lot_purity']).'-'.sprintf("%02d", $srno));
+    } elseif ($this->attributes['process_name'] == 'Choco Chain') {
+      $this->attributes['lot_no'] = strtoupper('CC-'.sprintf("%02d", $this->attributes['lot_purity']).'-'.sprintf("%02d", $srno));
     } elseif ($this->attributes['process_name'] == 'Office Outside KDM') {
       $this->attributes['lot_no'] = strtoupper('KDM-'.sprintf("%02d", $srno));
     } elseif ($this->attributes['process_name'] == 'Office Outside Lobster') {
