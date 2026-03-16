@@ -93,10 +93,10 @@ if(HOST=='ARC'){
 
   $main_menu =  array(
                       'Dashboard' => $dashboards,
-                      'Processes' => array('processes/processes'=>'Processes',
-                                            'departments/melting'=>'Melting Room',
-                                           'processes/individual_processes'=>'Individual Process',
-                                           'reports/pending_balance_reports'=>'Pending Balance Reports'),
+                      // 'Processes' => array('processes/processes'=>'Processes',
+                      //                       'departments/melting'=>'Melting Room',
+                      //                      'processes/individual_processes'=>'Individual Process',
+                      //                      'reports/pending_balance_reports'=>'Pending Balance Reports'),
                       'Reports' => array(/*'stock_summary_reports/stock_summary_list'=> 'Report Process',
                                           'stock_summary_reports/adjustment_records'=> 'Adjustment Report',
                                           'processes/process_fields' => 'Process Field Reports',
