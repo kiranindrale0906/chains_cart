@@ -1,6 +1,6 @@
 <?php
 	function get_model_name($product_name, $process_name) {
-//		 print_r($process_name);		 pd($product_name);
+		//  print_r($process_name);		 pd($product_name);
 		if ($process_name=='Refresh Final Process')
 			return array('model_name'=>'Refresh_final_process_model','module_name'=>'refresh');
 			
@@ -35,11 +35,11 @@
 				break;
 			case 'Choco Chain':
 				switch ($process_name) {
-					case 'Melting Process':
-						$model_name = array('model_name'=>'choco_chain_melting_process_model','module_name'=>'choco_chains');
+					case 'AG':
+						$model_name = array('model_name'=>'choco_chain_ag_model','module_name'=>'choco_chains');
 						break;
-					case 'Chain Making Process':
-						$model_name = array('model_name'=>'choco_chain_chain_making_process_model','module_name'=>'choco_chains');
+					case 'Machine Process':
+						$model_name = array('model_name'=>'choco_chain_machine_process_model','module_name'=>'choco_chains');
 						break;
 					case 'Final Process':
 						$model_name = array('model_name'=>'choco_chain_final_process_model','module_name'=>'choco_chains');

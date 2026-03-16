@@ -325,6 +325,8 @@ function start_structure($process = '', $department_name = '', $sub_department_n
         design_detail_common_structure('design_code'),
         commond_created_structure()
     );
+    
+   
     $structure['hcl_melting_process'] = array_merge(
         array(array('SR NO', 'id', 'label_with_value', '')),
         array(array('PARENT LOT NO', 'parent_lot_name', 'label_with_text', '')),
@@ -339,6 +341,7 @@ function start_structure($process = '', $department_name = '', $sub_department_n
             array('IN PURITY ', 'in_purity', 'label_with_value', '', '')),
         commond_created_structure()
     );
+    
 
     $structure['common_machine_process'] = array_merge($structure['common'],
         design_detail_common_structure('design_code'));
@@ -357,7 +360,7 @@ function start_structure($process = '', $department_name = '', $sub_department_n
         design_detail_common_structure('', 'machine_size', 'karigar'),
         commond_created_structure()
     );
-   
+    $structure['choco_chain_ag'] = $structure['common_karigar_process'];
     $structure['common_final_process'] = $structure['common'];
     $structure['hand_made_melting'] = $structure['common_start_for_rope_chain'];
     $structure['dus_collection_ags'] = $structure['common'];
@@ -508,8 +511,74 @@ function melting_structure($process = '', $department_name = '', $sub_department
         array(array('OUT LOT PURITY', 'out_lot_purity', 'label_with_value', '', '')),
         wastage_loss_structure('melting_wastage', 'wastage', 'loss', '', false),
         balance_structure('balance', '', 'balance_fine', 'tounch_loss_fine'));
+    $structure['common_without_ghiss_chain'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name),
+        array(array('Design Name', 'design_code', 'label_with_text', '')),
+        array(array('Machine Size', 'machine_size', 'label_with_text', '')),
+        array(array('Plain Rod', 'in_plain_rod', 'label_with_value', 'total', '')),
+        array(array('In Rod', 'in_rod', 'text_with_add_more', 'total', '')),
+
+        array(array('Out Rod', 'out_rod', 'text', 'total', '')),
+        array(array('Description', 'description', 'label_with_value', '', '')),
+        out_common_structure('text'),
+        wastage_loss_structure('daily_drawer_wastage', 'wastage', 'loss'),
+        tounch_structure(),
+        balance_structure('balance', '', 'balance_fine'));
+    
+        
+    $structure['choco_chain_ag'] = $structure['common_without_ghiss_chain'];
     return $structure[$process];
 }
+function chain_making_structure($process = '', $department_name = ''){
+    $structure['choco_chain_machine'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', 'in_purity', $department_name),
+        hook_in_structure(array('Hook', 'KDM', 'Lobster', 'Hollow Pipe',
+            'Solid Pipe')),
+        hook_out_structure(array('Hook', 'KDM', 'Lobster', 'Hollow Pipe',
+            'Solid Pipe')),
+        array(array('Karigar', 'karigar', 'karigar_dropdown', '')),
+        ghiss_structure(),
+        // out_common_structure(),
+        // array(array('Next Dept', 'next_department_name', 'dropdown', '',
+        // array(array('name' => 'Final Process', 'id' => 'Final Process'),
+        // array('name' => 'Hand Cutting', 'id' => 'Hand Cutting')),
+        // )),
+        array(array('Out Weight', 'out_weight', 'text_with_add_more', 'total', '')),
+        wastage_loss_structure('daily_drawer_wastage', 'wastage', ''),
+        array(array('Loss', 'loss', 'label_with_value', '', '')),
+        tounch_structure(),
+        array(array('Hand Cutting', 'factory_out', 'text', '', '')),
+        array(array('Wastage Purity', 'wastage_purity', 'label_with_value', '', '')),
+        balance_structure('balance', '', 'balance_fine'));
+
+        $structure['cartier_chain_making_process'] = array_merge(
+            array(array('PARENT LOT NO', 'parent_lot_name', 'label_with_text', '')),in_common_structure('in_lot_purity', 'in_weight', 'in_purity', $department_name),
+        hook_in_structure(array('Hook', 'KDM', 'Lobster', 'Hollow Pipe',
+            'Solid Pipe')),
+        hook_out_structure(array('Hook', 'KDM', 'Lobster', 'Hollow Pipe',
+            'Solid Pipe')),
+        array(array('Karigar', 'karigar', 'karigar_dropdown', '')),
+        ghiss_structure(),
+        // out_common_structure(),
+        // array(array('Next Dept', 'next_department_name', 'dropdown', '',
+        // array(array('name' => 'Final Process', 'id' => 'Final Process'),
+        // array('name' => 'Hand Cutting', 'id' => 'Hand Cutting')),
+        // )),
+        array(array('Out Weight', 'out_weight', 'text_with_add_more', 'total', '',
+            array(array('label' => 'Out Weight', 'field_type' => 'text',
+                'database_column' => 'out_weight'),
+                array('label' => 'Category One', 'field_type' => 'dropdown',
+                    'database_column' => 'melting_lot_category_one',
+                    'options' => get_melting_lot_category_ones('Choco Chain')),
+                array('label' => 'Quantity', 'field_type' => 'text',
+                    'database_column' => 'quantity')))),
+        wastage_loss_structure('daily_drawer_wastage', 'wastage', ''),
+        array(array('Loss', 'loss', 'label_with_value', '', '')),
+        tounch_structure(),
+        array(array('Hand Cutting', 'factory_out', 'text', '', '')),
+        array(array('Wastage Purity', 'wastage_purity', 'label_with_value', '', '')),
+        balance_structure('balance', '', 'balance_fine'));
+    return $structure[$process];
+}
+
 
 function tounch_department_structure($process = '', $department_name = '')
 {
@@ -683,7 +752,22 @@ function hcl_process_structure($process = '', $department_name = '')
 
     return $structure[$process];
 }
+function dye_structure($process = '', $department_name = '')
+{
+    $structure['common'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name),
+        array(array('Out Weight', 'out_weight', 'text_with_add_more', 'total', '',
+            array(array('label' => 'Out Weight', 'field_type' => 'text',
+                'database_column' => 'out_weight'),
+                array('label' => 'Karigar', 'field_type' => 'dropdown',
+                    'database_column' => 'karigar',
+                    'options' => process_wise_karigar_name('Choco Chain', '', 'Chain Making'))))),
+        wastage_loss_structure('melting_wastage', 'wastage', 'loss', '', false),
+        balance_structure('balance', '', 'balance_fine'));
 
+    $structure['choco_chain_ag'] = $structure['common'];
+ 
+return $structure[$process];
+}
 function machine_department_structure($process = '', $department_name = '')
 {
     $structure['rope_chain_machine_process'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name),
@@ -1114,6 +1198,7 @@ function flatting_structure($process = '', $department_name = '')
         balance_structure('balance', 'balance_gross', 'balance_fine', ''));
     $structure['rope_chain_melting_process'] = $structure['common'];
     $structure['choco_chain_melting_process'] = $structure['common'];
+    $structure['choco_chain_ag'] = $structure['common'];
     $structure['office_outside_common'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name),
         out_common_structure('text'),
         wastage_loss_structure('melting_wastage', 'wastage', 'loss', '', false),

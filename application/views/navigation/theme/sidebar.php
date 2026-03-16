@@ -231,11 +231,32 @@ if(HOST=='ARC'){
                                             'rope_chains/final_processes' => 'Final Process',
                                             ),
 
-                      'Choco Chain' => array('choco_chains/melting_processes' => 'Melting Process',
-                                            'choco_chains/chain_making_processes' => 'Chain Making Process',
-                                            'choco_chains/final_processes' => 'Final Process',
-                                            ),
-                        
+                      'Choco Chain' => array(
+                            //'choco_chains/combine_processes' => 'Combine Process',
+                            'choco_chains/ags' => 'AG',
+                            'choco_chains/machine_processes' => 'Chain Making',
+                            // 'choco_chains/hand_cutting_processes' => 'Hand Cutting',
+                             'choco_chains/final_processes' => 'GPC Final Process',
+                            // 'choco_chains/imp_final_processes' => 'GPC Imp Final Process',
+                            // 'choco_chains/rnd_processes' => 'GPC RND Process',
+                            // 'choco_chains/quality_processes' => 'Quality Process',
+                            // 'choco_chains/casting_final_processes' => 'GPC Casting Process',
+                            // //'choco_chains/casting_seventy_final_processes' => 'Casting 75 Process',
+                            //'choco_chains/casting_ninety_final_processes' => 'Casting 92 Process',
+
+                            // 'choco_chains/melting_lot_reports' => 'Melting Lot Analysis',
+                            // 'choco_chains/choco_chain_dye_processes' => 'Dye Process',
+                            // 'choco_chains/choco_chain_dye_final_processes' => 'Dye Final Process',
+                            // 'choco_chains/internal_gpc_processes' => 'Internal GPC Processes',
+
+                            // 'choco_chains/choco_chain_cutting_pipes' => 'Cutting Pipe',
+                            // 'choco_chains/choco_chain_solid_pipes' => 'Solid Pipes',
+                            // 'choco_chains/choco_chain_hollow_pipes' => 'Hollow Pipes',
+                            // 'choco_chains/choco_chain_solid_wires' => 'Solid Wires',
+                            // 'choco_chains/choco_chain_hard_wires' => 'Hard Wires',
+
+                        ),
+   
                 
                       'Solid Rope Chain' => array('solid_rope_chains/meltings' => 'Melting',
                                             'solid_rope_chains/machine_processes' => 'Machine Process',

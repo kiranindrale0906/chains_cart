@@ -231,8 +231,8 @@ class Melting_lot_model extends BaseModel{
       $this->load->model('rope_chains/rope_chain_melting_process_model');
       $process_obj=new rope_chain_melting_process_model($start_process);
     }elseif($this->attributes['process_name']=='Choco Chain'){
-      $this->load->model('choco_chains/choco_chain_melting_process_model');
-      $process_obj=new choco_chain_melting_process_model($start_process);
+      $this->load->model('choco_chains/choco_chain_ag_model');
+      $process_obj=new choco_chain_ag_model($start_process);
     }elseif($this->attributes['process_name']=='Office Outside Hook'){
       $this->load->model('office_outside/hook_model');
       $process_obj=new hook_model($start_process);
