@@ -631,6 +631,7 @@ function differenceInHours($startdate,$enddate){
 function get_parent_lot_process($key='') {
 
     return array(array('name'=>'Rope Chain','id' =>'Rope Chain'), 
+                 array('name'=>'Choco Chain','id' =>'Choco Chain'), 
                  );
 }
 function get_melting_lot_process($key='') {

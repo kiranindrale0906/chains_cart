@@ -1063,21 +1063,100 @@ function refresh_hold_structure($process = '', $department_name = '')
 
 function filing_structure($process = '', $department_name = '')
 {
-    $structure['casting_process_filing_processes'] = $structure['arc_customer_order_chain_filing'] = array_merge(
+    $structure['choco_chain_final_process'] = $structure['arc_customer_order_chain_filing'] = array_merge(
         in_common_structure('in_lot_purity', 'in_weight', '', $department_name),
         array(array('Karigar', 'karigar', 'label_with_text', '')),
-        array(array('Out Weight', 'out_weight', 'text_with_add_more', 'total', '',
-            array(array('label' => 'Out Weight', 'field_type' => 'text',
-                'database_column' => 'out_weight'),
-                array('label' => 'Process', 'field_type' => 'dropdown',
-                    'database_column' => 'next_department_name',
-                    'options' => array(
-						array('name' => 'Filing', 'id' => 'Filing'),
-                        array('name' => 'Stone Setting', 'id' => 'Stone Setting'),
-                        array('name' => 'Polish', 'id' => 'Polish'),
-                        array('name' => 'Final', 'id' => 'Final'),
-                        ),
-                    )))),
+        // array(array('Out Weight', 'out_weight', 'text_with_add_more', 'total', '',
+        //     array(array('label' => 'Out Weight', 'field_type' => 'text',
+        //         'database_column' => 'out_weight'),
+        //         array('label' => 'Process', 'field_type' => 'dropdown',
+        //             'database_column' => 'next_department_name',
+        //             'options' => array(
+		// 				array('name' => 'Filing', 'id' => 'Filing'),
+        //                 array('name' => 'Stone Setting', 'id' => 'Stone Setting'),
+        //                 array('name' => 'Polish', 'id' => 'Polish'),
+        //                 array('name' => 'Final', 'id' => 'Final'),
+        //                 ),
+        //             )))),
+        out_common_structure('text'),
+        hook_in_structure(array('Hook', 'KDM', 'Lobster')),
+        hook_out_structure(array('Hook', 'KDM', 'Lobster')),
+        wastage_loss_structure('melting_wastage', 'wastage', '', '', false),
+        array(array('DD WASTAGE', 'daily_drawer_wastage', 'text_with_add_more', 'total')),
+        
+        ghiss_structure('text_with_add_more'),
+        //tounch_structure(),
+        array(array('Loss', 'loss', 'text_with_add_more', '', '')),
+        tounch_structure(),
+        balance_structure('balance', 'balance_gross', 'balance_fine'));
+    return $structure[$process];
+}
+function hand_cutting_structure($process = '', $department_name = '')
+{
+  
+    $structure['choco_chain_final_process'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name),
+        hook_in_structure(array('Hook', 'KDM', 'Lobster')),
+        hook_out_structure(array('Hook', 'KDM', 'Lobster')), out_common_structure('text'),
+        design_detail_common_structure('design_code'),
+        array(array('Quantity', 'quantity', 'label_with_value', '', '')),
+        array(array('Karigar', 'karigar', 'karigar_dropdown', '')),
+        wastage_loss_structure('daily_drawer_wastage', 'wastage', ''),
+        //array(array('Pending Ghiss', 'pending_ghiss', 'text_with_add_more', 'total', '')),
+        array(array('Pending Ghiss', 'pending_ghiss', 'text_with_add_more', 'total', '',
+            array(array('label' => 'Pending Ghiss', 'field_type' => 'text', 'database_column' => 'pending_ghiss'),
+                array('label' => 'Karigar', 'field_type' => 'dropdown', 'database_column' => 'next_department_karigar', 'options' => array(array('id' => 'Tushar', 'name' => 'Tushar'), array('id' => 'Aftab', 'name' => 'Aftab'), array('id' => 'Altaf Cutting', 'name' => 'Altaf Cutting')))))),
+
+        balance_structure('balance', '', 'balance_fine'));
+
+        
+    return $structure[$process];
+}
+function buffing_structure($process = '', $department_name = '')
+{
+    $structure['choco_chain_final_process'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name),
+        out_common_structure('text'),
+        design_detail_common_structure('design_code'),
+        hook_in_structure(array('Hook', 'KDM', 'Lobster')),
+        hook_out_structure(array('Hook', 'KDM', 'Lobster')),
+        array(array('Quantity', 'quantity', 'label_with_value', '', '')),
+        array(array('NEXT PROCESS', 'skip_department', 'dropdown',
+            '', array(array('id' => 'No', 'name' => 'No', 'selected' => 'selected'),
+                array('id' => 'Yes', 'name' => 'Yes')))),
+        array(array('LOSS', 'loss', 'text', 'total')),
+        balance_structure('balance', '', 'balance_fine'));
+        
+    return $structure[$process];
+}
+function hand_dull_structure($process = '', $department_name = '')
+{
+    $structure['choco_chain_common'] = array_merge(in_common_structure('in_lot_purity', 'in_weight', '', $department_name),
+        out_common_structure('text'),
+        design_detail_common_structure('design_code'),
+        array(array('Quantity', 'quantity', 'label_with_value', '', '')),
+        wastage_loss_structure('daily_drawer_wastage', 'wastage', '', 'ghiss'),
+        balance_structure('balance', '', 'balance_fine'));
+     $structure['choco_chain_final_process'] =  $structure['choco_chain_common'];
+        
+    return $structure[$process];
+}
+function shampoo_and_steel_structure($process = '', $department_name = '')
+{
+    $structure['choco_chain_final_process'] = $structure['arc_customer_order_chain_filing'] = array_merge(
+        in_common_structure('in_lot_purity', 'in_weight', '', $department_name),
+        array(array('Karigar', 'karigar', 'label_with_text', '')),
+        // array(array('Out Weight', 'out_weight', 'text_with_add_more', 'total', '',
+        //     array(array('label' => 'Out Weight', 'field_type' => 'text',
+        //         'database_column' => 'out_weight'),
+        //         array('label' => 'Process', 'field_type' => 'dropdown',
+        //             'database_column' => 'next_department_name',
+        //             'options' => array(
+		// 				array('name' => 'Filing', 'id' => 'Filing'),
+        //                 array('name' => 'Stone Setting', 'id' => 'Stone Setting'),
+        //                 array('name' => 'Polish', 'id' => 'Polish'),
+        //                 array('name' => 'Final', 'id' => 'Final'),
+        //                 ),
+        //             )))),
+        out_common_structure('text'),
         hook_in_structure(array('Hook', 'KDM', 'Lobster')),
         hook_out_structure(array('Hook', 'KDM', 'Lobster')),
         wastage_loss_structure('melting_wastage', 'wastage', '', '', false),
